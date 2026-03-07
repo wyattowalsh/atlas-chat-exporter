@@ -1,0 +1,30 @@
+{
+  "name": "atlas-chat-exporter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first toolkit for exporting Atlas/ChatGPT conversations with shared extraction core.",
+  "license": "MIT",
+  "packageManager": "pnpm@9.12.2",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "build": "pnpm -r --if-present build",
+    "test": "pnpm -r --if-present test",
+    "lint": "eslint . --ext .ts,.tsx,.js,.mjs,.cjs",
+    "lint:fix": "pnpm lint -- --fix",
+    "typecheck": "pnpm -r --if-present typecheck",
+    "format": "prettier . --check",
+    "format:write": "prettier . --write"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@typescript-eslint/eslint-plugin": "^8.16.0",
+    "@typescript-eslint/parser": "^8.16.0",
+    "eslint": "^8.57.1",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
