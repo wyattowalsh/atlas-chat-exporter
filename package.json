@@ -1,0 +1,9 @@
+{
+  "name": "atlas-chat-exporter",
+  "private": true,
+  "scripts": {
+    "verify:brand-assets": "node scripts/verify-brand-assets.ts",
+    "verify:brand-assets:local": "node scripts/verify-brand-assets.ts --allow-missing",
+    "regenerate:brand-assets": "python scripts/regenerate-brand-assets.py"
+  }
+}
