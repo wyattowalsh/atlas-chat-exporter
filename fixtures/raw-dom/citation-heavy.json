@@ -1,0 +1,14 @@
+{
+  "title": "Citation Heavy",
+  "source": "chatgpt-web",
+  "meta": { "selectorVersion": "v1" },
+  "turns": [
+    { "role": "user", "blocks": [{ "kind": "paragraph", "text": "Provide sources." }] },
+    {
+      "role": "assistant",
+      "blocks": [
+        { "kind": "paragraph", "text": "Atlas behavior differs by build [cite:atlas-note](https://example.com/atlas) and Chromium baseline remains stable [cite:chromium](https://example.com/chromium)." }
+      ]
+    }
+  ]
+}

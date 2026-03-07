@@ -1,0 +1,41 @@
+{
+  "title": "Nested List",
+  "source": "chatgpt-atlas",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Give a rollout checklist."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            {
+              "text": "Implement parser",
+              "children": [
+                {
+                  "text": "Add turn discovery"
+                },
+                {
+                  "text": "Add role inference"
+                }
+              ]
+            },
+            {
+              "text": "Ship adapters"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

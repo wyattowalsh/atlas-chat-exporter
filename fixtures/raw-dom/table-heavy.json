@@ -1,0 +1,21 @@
+{
+  "title": "Table Heavy",
+  "source": "chatgpt-atlas",
+  "meta": { "selectorVersion": "v1" },
+  "turns": [
+    { "role": "user", "blocks": [{ "kind": "paragraph", "text": "Show adapter matrix." }] },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "table",
+          "rows": [
+            ["Adapter", "Copy", "Download"],
+            ["Extension", "yes", "yes"],
+            ["Bookmarklet", "no", "yes"]
+          ]
+        }
+      ]
+    }
+  ]
+}

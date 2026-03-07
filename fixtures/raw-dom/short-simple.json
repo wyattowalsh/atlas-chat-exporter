@@ -1,0 +1,9 @@
+{
+  "title": "Short Simple",
+  "source": "chatgpt-atlas",
+  "meta": { "selectorVersion": "v1" },
+  "turns": [
+    { "role": "user", "blocks": [{ "kind": "paragraph", "text": "Summarize this project." }] },
+    { "role": "assistant", "blocks": [{ "kind": "paragraph", "text": "It exports chats with structured markdown and JSON." }] }
+  ]
+}

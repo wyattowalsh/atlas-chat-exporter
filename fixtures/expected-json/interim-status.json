@@ -1,0 +1,25 @@
+{
+  "title": "Interim Status",
+  "source": "chatgpt-web",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Research this topic deeply."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Final synthesis with detailed findings."
+        }
+      ]
+    }
+  ]
+}

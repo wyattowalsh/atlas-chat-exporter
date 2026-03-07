@@ -1,0 +1,9 @@
+{
+  "title": "Partial Lazy Load",
+  "source": "chatgpt-web",
+  "meta": { "selectorVersion": "v1", "lazyLoaded": true },
+  "turns": [
+    { "role": "user", "blocks": [{ "kind": "paragraph", "text": "Export what is currently visible." }] },
+    { "role": "assistant", "blocks": [{ "kind": "paragraph", "text": "Only currently mounted turns were captured." }] }
+  ]
+}

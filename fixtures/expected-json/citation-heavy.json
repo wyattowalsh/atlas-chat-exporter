@@ -1,0 +1,25 @@
+{
+  "title": "Citation Heavy",
+  "source": "chatgpt-web",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Provide sources."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Atlas behavior differs by build [atlas-note](https://example.com/atlas) and Chromium baseline remains stable [chromium](https://example.com/chromium)."
+        }
+      ]
+    }
+  ]
+}

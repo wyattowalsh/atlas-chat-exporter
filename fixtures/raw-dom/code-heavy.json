@@ -1,0 +1,15 @@
+{
+  "title": "Code Heavy",
+  "source": "chatgpt-atlas",
+  "meta": { "selectorVersion": "v1" },
+  "turns": [
+    { "role": "user", "blocks": [{ "kind": "paragraph", "text": "Show parser pseudocode." }] },
+    {
+      "role": "assistant",
+      "blocks": [
+        { "kind": "code", "language": "ts", "code": "function parse(dom) {\n\treturn turns;\n}" },
+        { "kind": "paragraph", "text": "Use shared core everywhere." }
+      ]
+    }
+  ]
+}

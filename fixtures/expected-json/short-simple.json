@@ -1,0 +1,25 @@
+{
+  "title": "Short Simple",
+  "source": "chatgpt-atlas",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Summarize this project."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "It exports chats with structured markdown and JSON."
+        }
+      ]
+    }
+  ]
+}

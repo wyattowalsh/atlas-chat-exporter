@@ -1,0 +1,17 @@
+{
+  "title": "Long Research",
+  "source": "chatgpt-web",
+  "meta": { "selectorVersion": "v1" },
+  "turns": [
+    { "role": "user", "blocks": [{ "kind": "paragraph", "text": "Compare local-first export approaches." }] },
+    {
+      "role": "assistant",
+      "blocks": [
+        { "kind": "heading", "level": 2, "text": "Findings" },
+        { "kind": "paragraph", "text": "Local-first tools reduce data exfiltration risks and improve offline reliability." },
+        { "kind": "blockquote", "text": "Prefer deterministic transforms over opaque heuristics." },
+        { "kind": "list", "ordered": true, "items": [{ "text": "Extension" }, { "text": "Userscript" }, { "text": "CLI" }] }
+      ]
+    }
+  ]
+}

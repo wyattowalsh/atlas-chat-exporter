@@ -1,0 +1,10 @@
+{
+  "title": "Interim Status",
+  "source": "chatgpt-web",
+  "meta": { "selectorVersion": "v1" },
+  "turns": [
+    { "role": "user", "blocks": [{ "kind": "paragraph", "text": "Research this topic deeply." }] },
+    { "role": "assistant", "blocks": [{ "kind": "paragraph", "text": "Status: Gathering sources..." }] },
+    { "role": "assistant", "blocks": [{ "kind": "paragraph", "text": "Final synthesis with detailed findings." }] }
+  ]
+}

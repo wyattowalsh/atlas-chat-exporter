@@ -1,0 +1,41 @@
+{
+  "title": "Table Heavy",
+  "source": "chatgpt-atlas",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Show adapter matrix."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "table",
+          "rows": [
+            [
+              "Adapter",
+              "Copy",
+              "Download"
+            ],
+            [
+              "Extension",
+              "yes",
+              "yes"
+            ],
+            [
+              "Bookmarklet",
+              "no",
+              "yes"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

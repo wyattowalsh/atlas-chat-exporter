@@ -1,0 +1,30 @@
+{
+  "title": "Code Heavy",
+  "source": "chatgpt-atlas",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Show parser pseudocode."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "code",
+          "language": "ts",
+          "code": "function parse(dom) {\n  return turns;\n}"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Use shared core everywhere."
+        }
+      ]
+    }
+  ]
+}
