@@ -1,0 +1,89 @@
+name: "Parsing regression"
+description: "Report a parser/transform/render regression with fixture-oriented detail"
+title: "[regression] <short summary>"
+labels:
+  - bug
+  - regression
+  - parser
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for regressions in block structure, role inference, citations, or deterministic transforms.
+
+  - type: input
+    id: area
+    attributes:
+      label: Regression area
+      description: Primary failing component.
+      placeholder: "parser-dom turn discovery"
+    validations:
+      required: true
+
+  - type: input
+    id: introduced
+    attributes:
+      label: Suspected introducing commit / release
+      placeholder: "abc1234 or v0.x.y"
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - blocks release
+        - high
+        - medium
+        - low
+    validations:
+      required: true
+
+  - type: textarea
+    id: fixture_input
+    attributes:
+      label: Minimal reproducible input fixture
+      description: Attach/paste raw DOM HTML that reproduces the issue.
+      placeholder: "fixtures/raw-dom/<name>.html"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected_outputs
+    attributes:
+      label: Expected outputs
+      description: What markdown/json should be produced?
+      placeholder: |
+        fixtures/expected-md/<name>.md
+        fixtures/expected-json/<name>.json
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual_outputs
+    attributes:
+      label: Actual outputs
+      description: Include produced markdown/json snippets.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: citation_mode
+    attributes:
+      label: Citation mode used
+      options:
+        - keep
+        - normalize
+        - strip
+        - unsure
+
+  - type: checkboxes
+    id: regression_checks
+    attributes:
+      label: Regression checklist
+      options:
+        - label: I verified this is a behavior change from a previously working version.
+          required: true
+        - label: I included fixture-oriented evidence (raw DOM + expected output).
+          required: true
+        - label: I confirmed this is not adapter-only UI wiring and affects shared parsing/transform/render behavior.
+          required: true
