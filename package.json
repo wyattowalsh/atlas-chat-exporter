@@ -1,0 +1,16 @@
+{
+  "name": "atlas-chat-exporter",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local-first toolkit for exporting Atlas/ChatGPT conversations with a shared extraction core.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "node scripts/check-imports.mjs",
+    "check:imports": "node scripts/check-imports.mjs",
+    "generate:snippets": "node apps/snippets/src/generate-snippets.mjs",
+    "generate:bookmarklets": "node apps/bookmarklets/src/generate-bookmarklets.mjs"
+  }
+}

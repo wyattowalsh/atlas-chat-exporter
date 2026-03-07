@@ -1,0 +1,33 @@
+{
+  "manifest_version": 3,
+  "name": "Atlas Chat Exporter",
+  "version": "0.1.0",
+  "description": "Export current Atlas/ChatGPT conversation via shared core.",
+  "permissions": ["activeTab", "storage", "scripting", "downloads"],
+  "host_permissions": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+  "action": {
+    "default_title": "Atlas Export",
+    "default_popup": "src/popup.html"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+      "js": ["src/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "copy-chat": {
+      "suggested_key": {"default": "Ctrl+Shift+C", "mac": "Command+Shift+C"},
+      "description": "Copy chat export"
+    },
+    "download-chat": {
+      "suggested_key": {"default": "Ctrl+Shift+D", "mac": "Command+Shift+D"},
+      "description": "Download chat export"
+    }
+  }
+}

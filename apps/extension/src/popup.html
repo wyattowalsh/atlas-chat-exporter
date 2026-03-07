@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <body>
+    <main>
+      <h1>Atlas Export</h1>
+      <label>
+        Format
+        <select id="format"><option value="markdown">Markdown</option><option value="json">JSON</option></select>
+      </label>
+      <label><input type="checkbox" id="headings" checked /> Role headings</label>
+      <div>
+        <button id="copy">Copy</button>
+        <button id="download">Download</button>
+      </div>
+      <small id="status"></small>
+    </main>
+    <script type="module" src="./popup.js"></script>
+  </body>
+</html>
