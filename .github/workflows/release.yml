@@ -1,0 +1,67 @@
+name: release
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+permissions:
+  contents: write
+
+jobs:
+  package-and-release:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ github.ref_name }}
+      SOURCE_DATE_EPOCH: "315532800"
+      CRX_PRIVATE_KEY_PATH: ${{ runner.temp }}/extension-signing-key.pem
+      CRX_UPDATE_BASE_URL: ${{ vars.CRX_UPDATE_BASE_URL }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Normalize version
+        run: echo "RELEASE_VERSION=${RELEASE_VERSION#v}" >> "$GITHUB_ENV"
+
+      - name: Install Chrome
+        uses: browser-actions/setup-chrome@v1
+
+      - name: Materialize optional CRX key
+        if: ${{ secrets.CRX_PRIVATE_KEY_PEM != '' }}
+        run: |
+          cat <<'PEM' > "$CRX_PRIVATE_KEY_PATH"
+          ${{ secrets.CRX_PRIVATE_KEY_PEM }}
+          PEM
+          chmod 600 "$CRX_PRIVATE_KEY_PATH"
+
+      - name: Build project artifacts
+        run: |
+          echo "Build step placeholder: wire adapter builds before release."
+
+      - name: Package extension artifacts
+        run: |
+          npx -y tsx scripts/package-extension.ts \
+            --version "$RELEASE_VERSION" \
+            --extension-dir apps/extension/dist \
+            --out-dir dist/release
+
+      - name: Package consolidated release
+        run: |
+          npx -y tsx scripts/package-release.ts \
+            --version "$RELEASE_VERSION" \
+            --out-dir dist/release
+
+      - name: Publish GitHub release assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/release/atlas-chat-exporter-v${{ env.RELEASE_VERSION }}.zip
+            dist/release/atlas-chat-exporter-extension-v${{ env.RELEASE_VERSION }}.zip
+            dist/release/atlas-chat-exporter-extension-v${{ env.RELEASE_VERSION }}.crx
+          fail_on_unmatched_files: false

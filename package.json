@@ -1,0 +1,12 @@
+{
+  "name": "atlas-chat-exporter",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "package:extension": "tsx scripts/package-extension.ts",
+    "package:release": "tsx scripts/package-release.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.3"
+  }
+}
