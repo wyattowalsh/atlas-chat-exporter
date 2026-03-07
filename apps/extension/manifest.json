@@ -1,0 +1,39 @@
+{
+  "manifest_version": 3,
+  "name": "Atlas Chat Exporter",
+  "description": "Local-first chat export toolkit for ChatGPT/Atlas.",
+  "version": "0.1.0",
+  "permissions": ["activeTab", "scripting", "storage", "downloads"],
+  "host_permissions": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Atlas Chat Exporter"
+  },
+  "background": {
+    "service_worker": "dist/background.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+      "js": ["dist/content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "commands": {
+    "copy-export": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+C",
+        "mac": "Command+Shift+C"
+      },
+      "description": "Copy markdown export"
+    },
+    "download-export": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+D",
+        "mac": "Command+Shift+D"
+      },
+      "description": "Download markdown export"
+    }
+  }
+}
