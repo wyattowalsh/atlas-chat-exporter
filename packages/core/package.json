@@ -1,0 +1,17 @@
+{
+  "name": "@atlas/core",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./browser-global": "./src/browser-global.js"
+  },
+  "dependencies": {
+    "@atlas/parser-dom": "0.1.0",
+    "@atlas/render-json": "0.1.0",
+    "@atlas/render-markdown": "0.1.0",
+    "@atlas/shared": "0.1.0",
+    "@atlas/transform": "0.1.0"
+  },
+  "scripts": { "build": "echo core-noop" }
+}

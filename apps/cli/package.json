@@ -1,0 +1,11 @@
+{
+  "name": "@atlas/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": { "atlas-export": "src/cli.js" },
+  "dependencies": {
+    "@atlas/core": "0.1.0",
+    "@atlas/shared": "0.1.0"
+  },
+  "scripts": { "build": "echo cli-noop" }
+}

@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Atlas Chat Exporter",
+  "version": "0.1.0",
+  "description": "Export Atlas/ChatGPT chats with shared core parser.",
+  "permissions": ["storage", "activeTab", "downloads", "clipboardWrite"],
+  "host_permissions": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+  "background": { "service_worker": "src/background.js", "type": "module" },
+  "content_scripts": [{ "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"], "js": ["src/content.js"], "run_at": "document_idle" }],
+  "action": { "default_popup": "src/popup.html" },
+  "commands": {
+    "copy_chat": {
+      "description": "Copy chat export",
+      "suggested_key": { "default": "Ctrl+Shift+Y", "mac": "Command+Shift+Y" }
+    }
+  }
+}

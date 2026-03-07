@@ -1,0 +1,7 @@
+{
+  "name": "@atlas/parser-dom",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": { "build": "echo parser-noop" }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "@atlas/userscript",
+  "version": "0.1.0",
+  "type": "module",
+  "dependencies": { "@atlas/core": "0.1.0", "@atlas/shared": "0.1.0" },
+  "scripts": { "build": "echo userscript-static" }
+}

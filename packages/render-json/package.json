@@ -1,0 +1,7 @@
+{
+  "name": "@atlas/render-json",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": { "build": "echo render-json-noop" }
+}

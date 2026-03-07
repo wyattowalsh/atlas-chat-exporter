@@ -1,0 +1,9 @@
+{
+  "name": "@atlas/shared",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": {
+    "build": "echo shared-noop"
+  }
+}

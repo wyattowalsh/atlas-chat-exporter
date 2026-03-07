@@ -1,0 +1,1 @@
+javascript:(async()%3D%3E%7Bconst%20c%3Dwindow.__ATLAS_CORE__%3Bif(!c%3F.exportFromDocument)throw%20new%20Error(%22Atlas%20core%20not%20loaded%22)%3Bconst%20r%3Dc.exportFromDocument(document%2C%7BoutputFormat%3A%22markdown%22%7D%2C%22chatgpt-atlas%22)%3Bawait%20navigator.clipboard.writeText(r.output)%3B%7D)()%3B
