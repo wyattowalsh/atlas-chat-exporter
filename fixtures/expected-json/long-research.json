@@ -1,0 +1,37 @@
+{
+  "source": "chatgpt-web",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Summarize EV battery trends."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "EV battery research trends"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Research is moving toward lithium-iron-phosphate and sodium-ion for lower cost."
+        },
+        {
+          "kind": "blockquote",
+          "text": "Supply chain resiliency is now as important as energy density."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Manufacturers continue to optimize thermal management and charging curves."
+        }
+      ]
+    }
+  ]
+}

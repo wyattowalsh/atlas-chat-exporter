@@ -1,0 +1,29 @@
+{
+  "source": "chatgpt-atlas",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Show a TypeScript map example"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Here is one option:"
+        },
+        {
+          "kind": "code",
+          "language": "ts",
+          "code": "const nums = [1, 2, 3];\nconst doubled = nums.map((n) => n * 2);"
+        }
+      ]
+    }
+  ]
+}
