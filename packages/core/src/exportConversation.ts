@@ -4,6 +4,7 @@ import { renderMarkdown } from "../../render-markdown/src/index.js";
 import { transformConversation } from "../../transform/src/index.js";
 import {
   DEFAULT_EXPORT_OPTIONS,
+  NoTurnsFoundError,
   resolveExportOptions,
   type ExportContext,
   type ExportOptions,
@@ -25,6 +26,9 @@ export function exportConversation(input: ExportConversationInput): ExportResult
 
   const parsed = parseConversationFromDom(input.root, now.toISOString(), source, title);
   const transformed = transformConversation(parsed, options);
+  if (transformed.turns.length === 0) {
+    throw new NoTurnsFoundError();
+  }
   const content = renderByFormat(transformed, options.outputFormat, options);
 
   return {

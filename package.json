@@ -10,10 +10,15 @@
   },
   "scripts": {
     "build": "pnpm -r --if-present build",
-    "test": "pnpm -r --if-present test",
+    "test": "pnpm -r --if-present test && pnpm test:unit && pnpm test:golden && pnpm test:smoke",
+    "test:unit": "vitest run tests/unit tests/failure",
+    "test:golden": "vitest run tests/golden",
+    "test:smoke": "vitest run tests/smoke",
     "lint": "eslint . --ext .ts,.tsx,.js,.mjs,.cjs",
     "lint:fix": "pnpm lint -- --fix",
     "typecheck": "pnpm -r --if-present typecheck",
+    "verify:fixtures": "tsx scripts/verify-fixtures.ts",
+    "ci": "pnpm lint && pnpm typecheck && pnpm test:unit && pnpm test:golden && pnpm test:smoke && pnpm build",
     "format": "prettier . --check",
     "format:write": "prettier . --write"
   },
@@ -23,7 +28,9 @@
     "@typescript-eslint/parser": "^8.16.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
+    "jsdom": "^28.1.0",
     "prettier": "^3.4.1",
+    "tsx": "^4.21.0",
     "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   }

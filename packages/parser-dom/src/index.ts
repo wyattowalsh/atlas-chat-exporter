@@ -1,3 +1,4 @@
+import { SelectorDriftError } from "../../shared/src/index.js";
 import type { Block, ConversationDoc, ListItem, Role, Turn } from "../../shared/src/index.js";
 
 const TEXT_NODE = 3;
@@ -35,7 +36,17 @@ export function parseConversationFromDom(
 export function discoverTurns(root: Document | Element): Element[] {
   const matches = Array.from(root.querySelectorAll(TURN_SELECTORS));
   if (matches.length === 0) {
-    return [root instanceof Document ? root.body : root].filter(Boolean) as Element[];
+    const container = isDocumentNode(root) ? root.body : root;
+    const hasConversationRoot =
+      container.matches?.("[data-conversation-root], #conversation") ||
+      Boolean(container.querySelector?.("[data-conversation-root], #conversation"));
+    const hasAnyElements = (container.querySelectorAll?.("*").length ?? 0) > 0;
+
+    if (hasConversationRoot && hasAnyElements) {
+      throw new SelectorDriftError("Conversation root found but no turn selectors matched.");
+    }
+
+    return [container].filter(Boolean) as Element[];
   }
 
   const unique = new Set<Element>();
@@ -52,6 +63,11 @@ export function inferRole(turnNode: Element): Role {
   const attrRole = turnNode.getAttribute("data-message-author-role")?.toLowerCase();
   if (attrRole === "user" || attrRole === "assistant" || attrRole === "system") {
     return attrRole;
+  }
+
+  const dataRole = turnNode.getAttribute("data-role")?.toLowerCase();
+  if (dataRole === "user" || dataRole === "assistant" || dataRole === "system") {
+    return dataRole;
   }
 
   const classRole = turnNode.className.toLowerCase();
@@ -253,4 +269,8 @@ function cleanText(value: string): string {
 
 function firstText(node: Element, maxLength: number): string {
   return cleanText(node.textContent || "").slice(0, maxLength);
+}
+
+function isDocumentNode(value: Document | Element): value is Document {
+  return (value as Document).nodeType === 9;
 }
