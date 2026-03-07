@@ -1,0 +1,11 @@
+{
+  "name": "atlas-chat-exporter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test --experimental-strip-types tests/**/*.test.ts",
+    "verify-fixtures": "node --experimental-strip-types scripts/verify-fixtures.ts",
+    "ci:check": "npm run verify-fixtures && npm run test"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "title": "Table Chat",
+  "source": "unknown",
+  "exportedAt": "1970-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Data below"
+        },
+        {
+          "kind": "table",
+          "rows": [
+            ["Name", "Value"],
+            ["A", "1"]
+          ]
+        },
+        {
+          "kind": "blockquote",
+          "text": "Quoted line"
+        }
+      ]
+    }
+  ]
+}
