@@ -1,0 +1,34 @@
+{
+  "title": null,
+  "source": "chatgpt-atlas",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Show a TypeScript function that retries with exponential backoff."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Here is a minimal implementation:"
+        },
+        {
+          "kind": "code",
+          "language": "ts",
+          "code": "export async function retryWithBackoff<T>(\n  fn: () => Promise<T>,\n  retries = 3,\n  baseDelayMs = 200\n): Promise<T> {\n  let attempt = 0;\n  for (;;) {\n    try {\n      return await fn();\n    } catch (error) {\n      if (attempt >= retries) throw error;\n      const delay = baseDelayMs * 2 ** attempt;\n      await new Promise((resolve) => setTimeout(resolve, delay));\n      attempt += 1;\n    }\n  }\n}"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Use jitter for distributed systems to avoid synchronized retries."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "title": null,
+  "source": "chatgpt-atlas",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Give me a launch checklist for a browser extension."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            {
+              "text": "Product readiness",
+              "children": [
+                {
+                  "text": "Define target users"
+                },
+                {
+                  "text": "Validate core workflow"
+                }
+              ]
+            },
+            {
+              "text": "Engineering readiness",
+              "children": [
+                {
+                  "text": "Automated tests",
+                  "children": [
+                    {
+                      "text": "Unit coverage for parser"
+                    },
+                    {
+                      "text": "Smoke tests for export actions"
+                    }
+                  ]
+                },
+                {
+                  "text": "Release build verification"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

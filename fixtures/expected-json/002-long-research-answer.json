@@ -1,0 +1,76 @@
+{
+  "title": null,
+  "source": "chatgpt-atlas",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Compare supervised, unsupervised, and reinforcement learning with practical tradeoffs."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "High-level comparison"
+        },
+        {
+          "kind": "paragraph",
+          "text": "These three paradigms differ mainly in how feedback is provided and what objective is optimized."
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "Supervised learning"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Uses labeled examples. It often provides the fastest path to production when labels are available."
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "Unsupervised learning"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Uses unlabeled data to discover structure. It is useful for clustering, representation learning, and anomaly detection."
+        },
+        {
+          "kind": "heading",
+          "level": 3,
+          "text": "Reinforcement learning"
+        },
+        {
+          "kind": "paragraph",
+          "text": "Optimizes sequential decisions through reward signals. It can solve control problems but is usually data- and tuning-intensive."
+        },
+        {
+          "kind": "blockquote",
+          "text": "In practice, teams often combine paradigms: self-supervised pretraining, then supervised fine-tuning, and occasionally RL for policy optimization."
+        },
+        {
+          "kind": "list",
+          "ordered": true,
+          "items": [
+            {
+              "text": "Label quality is often the bottleneck in supervised setups."
+            },
+            {
+              "text": "Evaluation can be ambiguous in unsupervised workflows."
+            },
+            {
+              "text": "Reward design and simulator fidelity dominate RL reliability."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

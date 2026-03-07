@@ -1,0 +1,25 @@
+{
+  "title": null,
+  "source": "chatgpt-atlas",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Hi! Can you summarize what photosynthesis is?"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Photosynthesis is how plants convert sunlight, water, and carbon dioxide into glucose and oxygen."
+        }
+      ]
+    }
+  ]
+}

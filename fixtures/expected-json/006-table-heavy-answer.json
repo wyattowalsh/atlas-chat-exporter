@@ -1,0 +1,46 @@
+{
+  "title": null,
+  "source": "chatgpt-atlas",
+  "exportedAt": "2026-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Summarize adapter options in a table."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "table",
+          "rows": [
+            [
+              "Adapter",
+              "Best output path",
+              "Runtime constraint"
+            ],
+            [
+              "Extension",
+              "copy/download",
+              "MV3 permissions"
+            ],
+            [
+              "Bookmarklet",
+              "download",
+              "URL length and CSP"
+            ],
+            [
+              "CLI",
+              "stdout/file",
+              "browser attachment"
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

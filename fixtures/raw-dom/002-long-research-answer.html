@@ -1,0 +1,22 @@
+<!doctype html>
+<html><body>
+<main data-conversation="atlas">
+  <article data-turn="1" data-role="user"><p>Compare supervised, unsupervised, and reinforcement learning with practical tradeoffs.</p></article>
+  <article data-turn="2" data-role="assistant">
+    <h2>High-level comparison</h2>
+    <p>These three paradigms differ mainly in how feedback is provided and what objective is optimized.</p>
+    <h3>Supervised learning</h3>
+    <p>Uses labeled examples. It often provides the fastest path to production when labels are available.</p>
+    <h3>Unsupervised learning</h3>
+    <p>Uses unlabeled data to discover structure. It is useful for clustering, representation learning, and anomaly detection.</p>
+    <h3>Reinforcement learning</h3>
+    <p>Optimizes sequential decisions through reward signals. It can solve control problems but is usually data- and tuning-intensive.</p>
+    <blockquote>In practice, teams often combine paradigms: self-supervised pretraining, then supervised fine-tuning, and occasionally RL for policy optimization.</blockquote>
+    <ol>
+      <li>Label quality is often the bottleneck in supervised setups.</li>
+      <li>Evaluation can be ambiguous in unsupervised workflows.</li>
+      <li>Reward design and simulator fidelity dominate RL reliability.</li>
+    </ol>
+  </article>
+</main>
+</body></html>

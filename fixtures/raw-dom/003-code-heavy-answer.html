@@ -1,0 +1,27 @@
+<!doctype html>
+<html><body>
+<main data-conversation="atlas">
+  <article data-turn="1" data-role="user"><p>Show a TypeScript function that retries with exponential backoff.</p></article>
+  <article data-turn="2" data-role="assistant">
+    <p>Here is a minimal implementation:</p>
+    <pre><code class="language-ts">export async function retryWithBackoff<T>(
+  fn: () =&gt; Promise&lt;T&gt;,
+  retries = 3,
+  baseDelayMs = 200
+): Promise&lt;T&gt; {
+  let attempt = 0;
+  for (;;) {
+    try {
+      return await fn();
+    } catch (error) {
+      if (attempt &gt;= retries) throw error;
+      const delay = baseDelayMs * 2 ** attempt;
+      await new Promise((resolve) =&gt; setTimeout(resolve, delay));
+      attempt += 1;
+    }
+  }
+}</code></pre>
+    <p>Use jitter for distributed systems to avoid synchronized retries.</p>
+  </article>
+</main>
+</body></html>
