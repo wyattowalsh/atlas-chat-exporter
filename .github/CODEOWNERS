@@ -1,0 +1,22 @@
+# Atlas Chat Exporter ownership model
+# Default ownership: maintainers team reviews all changes.
+* @atlas-chat-exporter/maintainers
+
+# Shared extraction pipeline requires parser + platform review.
+/packages/core/ @atlas-chat-exporter/core @atlas-chat-exporter/maintainers
+/packages/parser-dom/ @atlas-chat-exporter/core @atlas-chat-exporter/maintainers
+/packages/transform/ @atlas-chat-exporter/core @atlas-chat-exporter/maintainers
+/packages/render-markdown/ @atlas-chat-exporter/core @atlas-chat-exporter/maintainers
+/packages/render-json/ @atlas-chat-exporter/core @atlas-chat-exporter/maintainers
+
+# Adapter surfaces require the owning adapter team plus maintainers.
+/apps/extension/ @atlas-chat-exporter/extension @atlas-chat-exporter/maintainers
+/apps/snippets/ @atlas-chat-exporter/snippets @atlas-chat-exporter/maintainers
+/apps/bookmarklets/ @atlas-chat-exporter/snippets @atlas-chat-exporter/maintainers
+/apps/userscript/ @atlas-chat-exporter/userscript @atlas-chat-exporter/maintainers
+/apps/cli/ @atlas-chat-exporter/cli @atlas-chat-exporter/maintainers
+/apps/native-launchers/ @atlas-chat-exporter/cli @atlas-chat-exporter/maintainers
+
+# Docs and release policy are maintainer-owned.
+/docs/ @atlas-chat-exporter/maintainers
+/.github/ @atlas-chat-exporter/maintainers
