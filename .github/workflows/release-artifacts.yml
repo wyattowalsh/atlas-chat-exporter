@@ -1,0 +1,61 @@
+name: Release Artifacts
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version tag (example: v1.2.3)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-release-artifacts:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_VERSION: ${{ github.event_name == 'release' && github.event.release.tag_name || github.event.inputs.version }}
+      SOURCE_DATE_EPOCH: "1704067200"
+      EXTENSION_CRX_KEY_PATH: ${{ runner.temp }}/extension.pem
+      EXTENSION_UPDATE_BASE_URL: ${{ vars.EXTENSION_UPDATE_BASE_URL }}
+      EXTENSION_ID: ${{ vars.EXTENSION_ID }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install --no-fund --no-audit
+
+      - name: Build extension zip and optional CRX
+        shell: bash
+        run: |
+          if [[ -n "${{ secrets.EXTENSION_CRX_PRIVATE_KEY }}" ]]; then
+            printf '%s\n' "${{ secrets.EXTENSION_CRX_PRIVATE_KEY }}" > "$EXTENSION_CRX_KEY_PATH"
+            npm run package:extension -- --version "$RELEASE_VERSION"
+          else
+            echo "EXTENSION_CRX_PRIVATE_KEY is not configured; building zip only."
+            npm run package:extension -- --version "$RELEASE_VERSION"
+          fi
+
+      - name: Build release bundle zip
+        run: npm run package:release -- --version "$RELEASE_VERSION"
+
+      - name: Upload release bundle
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          fail_on_unmatched_files: false
+          files: |
+            dist/release/atlas-chat-exporter-${{ env.RELEASE_VERSION }}.zip
+            dist/release/atlas-chat-exporter-extension-${{ env.RELEASE_VERSION }}.zip
+            dist/release/atlas-chat-exporter-extension-${{ env.RELEASE_VERSION }}.crx
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
