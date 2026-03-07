@@ -1,0 +1,99 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  validate-and-build:
+    name: Validate and Build (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version:
+          - 20.x
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Setup Node.js (LTS)
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node-modules-${{ matrix.node-version }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-${{ matrix.node-version }}-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Unit tests
+        run: pnpm run test:unit
+
+      - name: Fixture golden tests
+        run: pnpm run test:golden
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Upload CLI distributable bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli-distributable-bundle
+          path: |
+            apps/cli/dist/**
+            dist/cli/**
+          if-no-files-found: warn
+
+      - name: Upload extension zip package
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-zip-package
+          path: |
+            apps/extension/dist/*.zip
+            dist/extension/*.zip
+          if-no-files-found: warn
+
+      - name: Upload snippets/bookmarklets bundles
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: snippets-bookmarklets-bundles
+          path: |
+            apps/snippets/dist/**
+            apps/bookmarklets/dist/**
+            dist/snippets/**
+            dist/bookmarklets/**
+          if-no-files-found: warn
