@@ -16,13 +16,13 @@ Legend:
 - Wave 2 core/parser/transform/render: `9872bb1`
 - Wave 3 fixtures/tests: `c7595d9`
 - Wave 4 adapters/packaging/security/governance: `73b2a42`, `1d69074`, `12b470b`, `60da58b`
-- Wave 6 targeted recovery: `<RECOVERY_COMMIT>`
+- Wave 6 targeted recovery: `75c9ab7`
 
 ## PR mapping
 
 |  PR | Status              | Absorbing commit(s)                        | Notes                                                                                     |
 | --: | ------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| #39 | Absorbed + Recovery | `73b2a42`, `60da58b`, `<RECOVERY_COMMIT>`  | Branding/scripts integrated; remaining adapter-facing metadata/docs recovered.            |
+| #39 | Absorbed + Recovery | `73b2a42`, `60da58b`, `75c9ab7`            | Branding/scripts integrated; remaining adapter-facing metadata/docs recovered.            |
 | #38 | Absorbed            | `9872bb1`                                  | Parser/transform/render/core integrated with canonical API and strict adapter boundaries. |
 | #37 | Absorbed            | `9872bb1`                                  | Shared type/contracts deltas integrated additively.                                       |
 | #36 | Superseded          | `5362fc7`, `9872bb1`, `c7595d9`, `73b2a42` | Workspace scaffold branch is stale and regressive versus integrated baseline.             |
@@ -58,7 +58,7 @@ Legend:
 |  #6 | Superseded          | `9872bb1`                                  | Parser/render overlap superseded by Wave 2 representative.                                |
 |  #5 | Superseded          | `73b2a42`                                  | Adapter scaffold overlap superseded by Wave 4 integration.                                |
 |  #4 | Superseded          | `9872bb1`                                  | Core pipeline overlap superseded by Wave 2 representative.                                |
-|  #2 | Absorbed + Recovery | `73b2a42`, `1d69074`, `<RECOVERY_COMMIT>`  | Hooks/templates integrated; remaining template governance artifacts recovered.            |
+|  #2 | Absorbed + Recovery | `73b2a42`, `1d69074`, `75c9ab7`            | Hooks/templates integrated; remaining template governance artifacts recovered.            |
 
 ## Proof pass notes
 
