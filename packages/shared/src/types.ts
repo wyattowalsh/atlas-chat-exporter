@@ -21,6 +21,21 @@ export interface ConversationDoc {
   turns: Turn[];
 }
 
+export interface ExportContext {
+  now?: Date;
+  locationHref?: string;
+  documentTitle?: string;
+}
+
+export interface ExportResult {
+  format: OutputFormat;
+  content: string;
+  mimeType: string;
+  fileExtension: string;
+  suggestedFilename: string;
+  conversation: ConversationDoc;
+}
+
 export interface Turn {
   role: Role;
   blocks: Block[];

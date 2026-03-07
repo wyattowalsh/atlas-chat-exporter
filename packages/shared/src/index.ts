@@ -2,7 +2,9 @@ export type {
   Block,
   CitationMode,
   ConversationDoc,
+  ExportContext,
   ExportOptions,
+  ExportResult,
   ListItem,
   OutputFormat,
   Role,
@@ -20,7 +22,10 @@ export {
   AdapterError,
   AtlasChatExporterError,
   ClipboardUnavailableError,
+  CopyBlockedError,
   DownloadUnavailableError,
+  DownloadBlockedError,
   NoTurnsFoundError,
+  SelectorDriftError,
   type AdapterAction
 } from "./errors.js";

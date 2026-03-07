@@ -16,6 +16,12 @@ export class NoTurnsFoundError extends AtlasChatExporterError {
   }
 }
 
+export class SelectorDriftError extends AtlasChatExporterError {
+  constructor(message = "Expected selectors no longer match the conversation structure.") {
+    super(message, "SELECTOR_DRIFT");
+  }
+}
+
 export class AdapterError extends AtlasChatExporterError {
   readonly adapter: string;
 
@@ -42,8 +48,20 @@ export class ClipboardUnavailableError extends AdapterActionError {
   }
 }
 
+export class CopyBlockedError extends ClipboardUnavailableError {
+  constructor(adapter = "unknown", message = "Copy action is blocked by the runtime permissions or user settings.") {
+    super(adapter, message);
+  }
+}
+
 export class DownloadUnavailableError extends AdapterActionError {
   constructor(adapter: string, message = "File download is blocked or unavailable in this runtime.") {
     super(adapter, "download", message, "DOWNLOAD_UNAVAILABLE");
+  }
+}
+
+export class DownloadBlockedError extends DownloadUnavailableError {
+  constructor(adapter = "unknown", message = "Download action is blocked by the runtime permissions or user settings.") {
+    super(adapter, message);
   }
 }
