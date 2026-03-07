@@ -1,0 +1,25 @@
+# Repository settings for github-settings / safe-settings apps.
+# Applies required checks to protected branches.
+branches:
+  - name: main
+    protection:
+      required_status_checks:
+        strict: true
+        contexts:
+          - "required-status-gate"
+          - "Lint, Typecheck, Tests, Golden, Build"
+      enforce_admins: true
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+      restrictions: null
+  - name: master
+    protection:
+      required_status_checks:
+        strict: true
+        contexts:
+          - "required-status-gate"
+          - "Lint, Typecheck, Tests, Golden, Build"
+      enforce_admins: true
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+      restrictions: null

@@ -1,0 +1,105 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 20.11.1
+  PNPM_VERSION: 9.12.3
+
+jobs:
+  validate-and-build:
+    name: Lint, Typecheck, Tests, Golden, Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - name: Setup Node.js (LTS pinned)
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - name: Resolve pnpm store path
+        id: pnpm-store
+        shell: bash
+        run: echo "STORE_PATH=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store + node_modules
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ steps.pnpm-store.outputs.STORE_PATH }}
+            **/node_modules
+          key: ${{ runner.os }}-node-${{ env.NODE_VERSION }}-pnpm-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-${{ env.NODE_VERSION }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Unit tests
+        run: pnpm run test:unit
+
+      - name: Fixture golden tests
+        run: pnpm run test:golden
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Upload CLI distributable bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: cli-distributable-bundle
+          if-no-files-found: error
+          path: |
+            apps/cli/dist/**
+            dist/cli/**
+
+      - name: Upload extension zip package
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-zip-package
+          if-no-files-found: error
+          path: |
+            apps/extension/dist/*.zip
+            dist/extension/*.zip
+
+      - name: Upload generated snippets + bookmarklets bundles
+        uses: actions/upload-artifact@v4
+        with:
+          name: snippets-bookmarklets-bundles
+          if-no-files-found: error
+          path: |
+            apps/snippets/dist/**
+            apps/bookmarklets/dist/**
+            dist/snippets/**
+            dist/bookmarklets/**
