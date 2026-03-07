@@ -1,36 +1,47 @@
 # Decision Log
 
-## 2026-03-07 - Open PR Cluster Mapping and Representative Selection
+This file records architecture and product decisions that materially impact implementation.
 
-Status: Accepted
+## 2026-03-07 — Single Shared Extraction Core
 
-Context:
-- There are 37 open PRs with extensive overlap and shared ancestry from an older base commit.
-- Directly merging all heads would cause high conflict churn and duplicate semantics.
+- **Decision:** All adapters must call one shared parser/transform/renderer stack.
+- **Why:** Prevent parsing drift and simplify maintenance.
+- **Consequence:** Adapter code remains mostly runtime glue; parser changes automatically benefit all surfaces.
 
-Decision:
-- Use a consolidated integration branch (`codex/integration-pr-backlog`) and absorb intent by cluster.
-- Merge representative PRs first and close superseded duplicates with traceability notes.
+## 2026-03-07 — Local-first and no telemetry by default
 
-Representative clusters:
-- CI workflows/settings: PR #34 (supersedes #20)
-- GitHub templates/CODEOWNERS: PR #32 (supersedes #26)
-- Docs baseline: PR #29 (supersedes #25, #14, #9)
-- Branch/release policy: PR #27
-- Shared type deltas: PR #37 (supersedes #17; reconciles with #7)
-- Core parser/transform/render: PR #38 (supersedes #6, #19, #4)
-- Fixtures/tests corpus: PR #31 (supersedes #23, #13, #10, optionally #12)
-- Packaging/release scripts: PR #30 (supersedes #24, #28)
-- Security policy enforcement: PR #15
-- Hooks/commit discipline: PR #35 (supersedes #22, #2 hook subset)
-- Branding assets integration: PR #39
-- Workspace scaffold variants (#36, #18, #8): selective delta backport only; no wholesale merge.
+- **Decision:** No analytics, telemetry, or remote persistence paths are included by default.
+- **Why:** Exported chats may include sensitive data.
+- **Consequence:** Any future remote feature requires explicit opt-in design, security review, and documentation update.
 
-Conflict hotspots:
-- `package.json`
-- `README.md`
-- `packages/*/src/index.*`
-- `.github/workflows/*`
+## 2026-03-07 — Deterministic transform pipeline
 
-Rationale:
-- Preserves intent completeness while preventing semantic regression from redundant branch variants.
+- **Decision:** Cleanup behavior must be deterministic and fixture-testable.
+- **Why:** Non-deterministic cleanup undermines trust and golden tests.
+- **Consequence:** Heuristic or probabilistic behavior is avoided unless tightly bounded and documented.
+
+## 2026-03-07 — Atlas-first with Chromium-reference validation
+
+- **Decision:** Atlas is the target environment, Chromium ChatGPT web is the validation reference.
+- **Why:** Atlas DOM behavior may vary; Chromium provides repeatable baseline.
+- **Consequence:** Atlas caveats are tracked explicitly rather than hidden in ad hoc code paths.
+
+## 2026-03-07 — Extension packaging and signing prerequisites are release gates
+
+- **Decision:** zip/crx generation prerequisites are mandatory pre-release checks.
+- **Why:** Unsigned or non-reproducible builds weaken trust and operability.
+- **Consequence:** Release checklist includes deterministic packaging, key/signing provenance, and manifest verification.
+
+## 2026-03-07 — CI/CD artifact-oriented release flow
+
+- **Decision:** CI/CD should generate versioned artifacts for adapters and publish metadata/checksums.
+- **Why:** Reproducibility and rollback capability require explicit artifact handling.
+- **Consequence:** Release process includes artifact verification and documentation sync tasks.
+
+## 2026-03-07 — Open PR Cluster Mapping and Representative Selection
+
+- **Decision:** Use a consolidated integration branch (`codex/integration-pr-backlog`) and absorb intent by cluster.
+- **Context:** 37 open PRs share old ancestry and overlap heavily; direct literal merging causes unnecessary conflict churn.
+- **Representatives:** #34, #32, #29, #27, #37, #38, #31, #30, #15, #35, #39; workspace-scaffold variants (#36/#18/#8) are selective delta backports only.
+- **Hotspots:** `package.json`, `README.md`, `packages/*/src/index.*`, `.github/workflows/*`.
+- **Consequence:** Superseded PRs are closed with explicit traceability to merge/recovery commits.
