@@ -1,0 +1,16 @@
+{
+  "name": "atlas-chat-exporter",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Local-first toolkit for exporting Atlas/ChatGPT conversations",
+  "scripts": {
+    "lint": "echo 'lint step not yet implemented'",
+    "typecheck": "echo 'typecheck step not yet implemented'",
+    "test": "echo 'test step not yet implemented'",
+    "verify:fixtures": "echo 'fixture/golden verification step not yet implemented'",
+    "build": "echo 'build step not yet implemented'",
+    "artifact:extension": "bash scripts/build-extension-zip.sh",
+    "artifact:crx": "bash scripts/build-crx.sh",
+    "artifact:release": "bash scripts/build-release-zip.sh"
+  }
+}
