@@ -45,3 +45,10 @@ This file records architecture and product decisions that materially impact impl
 - **Representatives:** #34, #32, #29, #27, #37, #38, #31, #30, #15, #35, #39; workspace-scaffold variants (#36/#18/#8) are selective delta backports only.
 - **Hotspots:** `package.json`, `README.md`, `packages/*/src/index.*`, `.github/workflows/*`.
 - **Consequence:** Superseded PRs are closed with explicit traceability to merge/recovery commits.
+
+## 2026-03-07 — Wave 6 intent-absorption proof and recovery policy
+
+- **Decision:** Treat non-zero branch patch deltas as expected when conflict-resolved integration commits absorb intent, and backport only high-value unmatched deltas.
+- **Context:** Most open PR heads differ by one unmatched commit (`git cherry`) because representative merges and reconciliations replaced literal patch replay.
+- **Execution:** Added targeted recovery commit `75c9ab7` for remaining governance/docs parity deltas and recorded full traceability in [`docs/pr-intent-absorption-matrix.md`](./pr-intent-absorption-matrix.md).
+- **Consequence:** Every open PR has explicit status (`direct merge`, `absorbed`, `superseded`, or `recovery`) and commit references for closure comments.
