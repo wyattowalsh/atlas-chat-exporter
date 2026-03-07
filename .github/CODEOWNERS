@@ -1,0 +1,23 @@
+# Default ownership
+* @atlas-chat-exporter/maintainers
+
+# Shared extraction core
+/packages/shared/ @atlas-chat-exporter/core
+/packages/parser-dom/ @atlas-chat-exporter/core
+/packages/transform/ @atlas-chat-exporter/core
+/packages/render-markdown/ @atlas-chat-exporter/core
+/packages/render-json/ @atlas-chat-exporter/core
+/packages/core/ @atlas-chat-exporter/core
+
+# Adapters
+/apps/extension/ @atlas-chat-exporter/adapters
+/apps/snippets/ @atlas-chat-exporter/adapters
+/apps/bookmarklets/ @atlas-chat-exporter/adapters
+/apps/userscript/ @atlas-chat-exporter/adapters
+/apps/cli/ @atlas-chat-exporter/adapters
+/apps/native-launchers/ @atlas-chat-exporter/adapters
+
+# Docs and fixtures
+/docs/ @atlas-chat-exporter/docs
+/fixtures/ @atlas-chat-exporter/core
+/tests/ @atlas-chat-exporter/core
