@@ -95,6 +95,11 @@ async function run() {
   const forbiddenEndpointRegexes = networkPolicy.forbiddenEndpointPatterns.map(
     (pattern) => new RegExp(pattern, 'i')
   );
+  const allowedReferenceHosts = new Set(
+    networkPolicy.defaultAdapterPolicy.allowedReferenceHosts ??
+      networkPolicy.defaultAdapterPolicy.allowedHosts ??
+      []
+  );
 
   const violations = [];
 
@@ -155,8 +160,17 @@ async function run() {
       }
 
       for (const rawUrl of urlsToValidate) {
+        const host = (() => {
+          try {
+            return new URL(rawUrl).hostname;
+          } catch {
+            return '';
+          }
+        })();
+
+        const hostIsAllowed = allowedReferenceHosts.has(host);
         const endpointLooksForbidden = forbiddenEndpointRegexes.some((regex) => regex.test(rawUrl));
-        if (endpointLooksForbidden) {
+        if (!hostIsAllowed || endpointLooksForbidden) {
           violations.push(`${relativeFile}: forbidden endpoint reference '${rawUrl}'`);
         }
       }

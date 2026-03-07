@@ -25,7 +25,7 @@
     "bundle:snippets": "tsx scripts/bundle-snippets.ts",
     "bundle:bookmarklets": "tsx scripts/bundle-bookmarklets.ts",
     "ci": "pnpm lint && pnpm typecheck && pnpm test:unit && pnpm test:golden && pnpm test:smoke && pnpm verify:fixtures && pnpm check:security-policy && pnpm build",
-    "prepare": "husky install",
+    "prepare": "husky",
     "lint-staged": "lint-staged",
     "commitlint": "commitlint --edit",
     "format": "prettier . --check",
