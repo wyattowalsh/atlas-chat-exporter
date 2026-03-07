@@ -1,0 +1,23 @@
+{
+  "source": "chatgpt-atlas",
+  "exportedAt": "2025-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "list",
+          "ordered": false,
+          "items": [
+            {
+              "text": "Phase 1 Scope"
+            },
+            {
+              "text": "Risks"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "source": "chatgpt-atlas",
+  "exportedAt": "2025-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Summarize battery recycling policy trends."
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "heading",
+          "level": 2,
+          "text": "Policy landscape"
+        },
+        {
+          "kind": "paragraph",
+          "text": "North America and EU are tightening producer obligations and traceability requirements."
+        },
+        {
+          "kind": "blockquote",
+          "text": "Collection targets are rising each cycle."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Implementation timelines vary by jurisdiction."
+        }
+      ]
+    }
+  ]
+}

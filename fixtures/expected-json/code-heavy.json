@@ -1,0 +1,29 @@
+{
+  "source": "chatgpt-atlas",
+  "exportedAt": "2025-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Show TypeScript example"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Use this:"
+        },
+        {
+          "kind": "code",
+          "language": "ts",
+          "code": "export const add = (a:number,b:number) => a+b;"
+        }
+      ]
+    }
+  ]
+}

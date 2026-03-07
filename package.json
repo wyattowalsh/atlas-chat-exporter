@@ -1,0 +1,11 @@
+{
+  "name": "atlas-chat-exporter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "verify:fixtures": "node scripts/verify-fixtures.js",
+    "verify:fixtures:update": "node scripts/verify-fixtures.js --update"
+  }
+}
