@@ -1,0 +1,18 @@
+{
+  "fixtureId": "simple-chat",
+  "source": "chatgpt-atlas",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        { "kind": "paragraph", "text": "Hello" }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        { "kind": "paragraph", "text": "Hi there!" }
+      ]
+    }
+  ]
+}

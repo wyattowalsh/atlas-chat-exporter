@@ -1,0 +1,9 @@
+{
+  "name": "@atlas-chat-exporter/snippets",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx ../../scripts/bundle-snippets.ts"
+  }
+}
