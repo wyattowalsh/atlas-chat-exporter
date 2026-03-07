@@ -1,0 +1,32 @@
+{
+  "name": "atlas-chat-exporter",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "prepare": "husky install",
+    "lint-staged": "lint-staged",
+    "commitlint": "commitlint --edit"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "eslint": "^9.22.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.5.3",
+    "tsc-files": "^1.1.4",
+    "typescript": "^5.8.2"
+  },
+  "lint-staged": {
+    "*.{js,cjs,mjs,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "tsc-files --noEmit --pretty false"
+    ]
+  }
+}
