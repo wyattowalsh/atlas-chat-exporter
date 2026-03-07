@@ -21,6 +21,7 @@
     "collect:fixtures": "tsx scripts/collect-fixtures.ts",
     "verify:fixtures": "tsx scripts/verify-fixtures.ts",
     "check:security-policy": "node scripts/enforce-security-policy.mjs",
+    "check:ci-parity": "node scripts/check-ci-parity.mjs",
     "package:extension": "tsx scripts/package-extension.ts",
     "package:release": "tsx scripts/package-release.ts",
     "bundle:snippets": "tsx scripts/bundle-snippets.ts",

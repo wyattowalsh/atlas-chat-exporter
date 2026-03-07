@@ -1,4 +1,5 @@
 import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 
 function readVersion(argv: string[]): string {
   for (let i = 0; i < argv.length; i += 1) {
@@ -10,7 +11,14 @@ function readVersion(argv: string[]): string {
       return token.slice('--version='.length);
     }
   }
-  return process.env.RELEASE_VERSION ?? '';
+  if (process.env.RELEASE_VERSION) {
+    return process.env.RELEASE_VERSION;
+  }
+
+  const packageJson = JSON.parse(
+    readFileSync(new URL('../package.json', import.meta.url), 'utf8')
+  ) as { version?: string };
+  return packageJson.version ?? '';
 }
 
 const version = readVersion(process.argv.slice(2));
