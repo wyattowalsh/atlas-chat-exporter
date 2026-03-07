@@ -25,6 +25,19 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Determine release metadata
+        id: vars
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAG="${{ inputs.tag }}"
+          else
+            TAG="${GITHUB_REF#refs/tags/}"
+          fi
+          VERSION="${TAG#v}"
+          echo "tag=${TAG}" >> "$GITHUB_OUTPUT"
+          echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -48,54 +61,30 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build release bundles
-        run: pnpm run build
+      - name: Run integration quality gate
+        run: pnpm run ci
+
+      - name: Bundle snippets
+        run: pnpm run bundle:snippets
+
+      - name: Bundle bookmarklets
+        run: pnpm run bundle:bookmarklets
+
+      - name: Package extension artifacts
+        run: pnpm run package:extension -- --version ${{ steps.vars.outputs.version }}
 
       - name: Package release artifacts
-        run: |
-          mkdir -p release-assets
-
-          if [ -d "apps/cli/dist" ]; then
-            tar -czf release-assets/cli-distributable-bundle.tar.gz -C apps/cli/dist .
-          elif [ -d "dist/cli" ]; then
-            tar -czf release-assets/cli-distributable-bundle.tar.gz -C dist/cli .
-          fi
-
-          if [ -f "apps/extension/dist/extension.zip" ]; then
-            cp apps/extension/dist/extension.zip release-assets/extension.zip
-          elif compgen -G "apps/extension/dist/*.zip" > /dev/null; then
-            cp apps/extension/dist/*.zip release-assets/
-          elif compgen -G "dist/extension/*.zip" > /dev/null; then
-            cp dist/extension/*.zip release-assets/
-          fi
-
-          if [ -d "apps/snippets/dist" ]; then
-            tar -czf release-assets/snippets-bundle.tar.gz -C apps/snippets/dist .
-          elif [ -d "dist/snippets" ]; then
-            tar -czf release-assets/snippets-bundle.tar.gz -C dist/snippets .
-          fi
-
-          if [ -d "apps/bookmarklets/dist" ]; then
-            tar -czf release-assets/bookmarklets-bundle.tar.gz -C apps/bookmarklets/dist .
-          elif [ -d "dist/bookmarklets" ]; then
-            tar -czf release-assets/bookmarklets-bundle.tar.gz -C dist/bookmarklets .
-          fi
+        run: pnpm run package:release -- --version ${{ steps.vars.outputs.version }}
 
       - name: Upload workflow artifacts
         uses: actions/upload-artifact@v4
         with:
           name: release-assets
-          path: release-assets/*
+          path: |
+            dist/release/*
+            apps/snippets/dist/*
+            apps/bookmarklets/dist/*
           if-no-files-found: warn
-
-      - name: Determine release tag
-        id: vars
-        run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
-          else
-            echo "tag=${GITHUB_REF#refs/tags/}" >> "$GITHUB_OUTPUT"
-          fi
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
@@ -103,4 +92,4 @@ jobs:
           tag_name: ${{ steps.vars.outputs.tag }}
           generate_release_notes: true
           files: |
-            release-assets/*
+            dist/release/*

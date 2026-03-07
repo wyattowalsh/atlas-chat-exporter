@@ -63,6 +63,15 @@ jobs:
       - name: Fixture golden tests
         run: pnpm run test:golden
 
+      - name: Adapter smoke tests
+        run: pnpm run test:smoke
+
+      - name: Verify fixtures
+        run: pnpm run verify:fixtures
+
+      - name: Security policy check
+        run: pnpm run check:security-policy
+
       - name: Build
         run: pnpm run build
 

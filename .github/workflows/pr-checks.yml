@@ -28,6 +28,9 @@ jobs:
           - typecheck
           - test:unit
           - test:golden
+          - test:smoke
+          - verify:fixtures
+          - check:security-policy
           - build
 
     steps:

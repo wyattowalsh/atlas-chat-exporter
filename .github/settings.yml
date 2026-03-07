@@ -11,17 +11,17 @@ repository:
 
 labels:
   - name: release
-    color: "5319e7"
-    description: "Pull request includes release impact"
+    color: '5319e7'
+    description: 'Pull request includes release impact'
   - name: no-release
-    color: "0e8a16"
-    description: "Internal change with no release impact"
+    color: '0e8a16'
+    description: 'Internal change with no release impact'
   - name: adapter-change
-    color: "1d76db"
-    description: "Change touches adapter package(s)"
+    color: '1d76db'
+    description: 'Change touches adapter package(s)'
   - name: core-change
-    color: "fbca04"
-    description: "Change touches shared parser/transform/render/core"
+    color: 'fbca04'
+    description: 'Change touches shared parser/transform/render/core'
 
 branches:
   - name: main
@@ -29,12 +29,14 @@ branches:
       required_status_checks:
         strict: true
         checks:
-          - context: "Validate and Build (Node 20.x)"
-          - context: "lint (Node 20.x)"
-          - context: "typecheck (Node 20.x)"
-          - context: "test:unit (Node 20.x)"
-          - context: "test:golden (Node 20.x)"
-          - context: "build (Node 20.x)"
+          - context: 'lint (Node 20.x)'
+          - context: 'typecheck (Node 20.x)'
+          - context: 'test:unit (Node 20.x)'
+          - context: 'test:golden (Node 20.x)'
+          - context: 'test:smoke (Node 20.x)'
+          - context: 'verify:fixtures (Node 20.x)'
+          - context: 'check:security-policy (Node 20.x)'
+          - context: 'build (Node 20.x)'
       enforce_admins: true
       required_pull_request_reviews:
         required_approving_review_count: 2
@@ -50,12 +52,14 @@ branches:
       required_status_checks:
         strict: true
         checks:
-          - context: "Validate and Build (Node 20.x)"
-          - context: "lint (Node 20.x)"
-          - context: "typecheck (Node 20.x)"
-          - context: "test:unit (Node 20.x)"
-          - context: "test:golden (Node 20.x)"
-          - context: "build (Node 20.x)"
+          - context: 'lint (Node 20.x)'
+          - context: 'typecheck (Node 20.x)'
+          - context: 'test:unit (Node 20.x)'
+          - context: 'test:golden (Node 20.x)'
+          - context: 'test:smoke (Node 20.x)'
+          - context: 'verify:fixtures (Node 20.x)'
+          - context: 'check:security-policy (Node 20.x)'
+          - context: 'build (Node 20.x)'
       enforce_admins: true
       required_pull_request_reviews:
         required_approving_review_count: 2
