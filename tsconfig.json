@@ -1,0 +1,17 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/shared" },
+    { "path": "packages/parser-dom" },
+    { "path": "packages/transform" },
+    { "path": "packages/render-markdown" },
+    { "path": "packages/render-json" },
+    { "path": "packages/core" },
+    { "path": "apps/extension" },
+    { "path": "apps/snippets" },
+    { "path": "apps/bookmarklets" },
+    { "path": "apps/userscript" },
+    { "path": "apps/cli" },
+    { "path": "apps/native-launchers" }
+  ]
+}
