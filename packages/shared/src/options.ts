@@ -1,4 +1,4 @@
-import type { CitationMode, ExportOptions, OutputFormat } from "./types";
+import type { CitationMode, ExportOptions, OutputFormat } from "./types.js";
 
 const CITATION_MODES: ReadonlySet<CitationMode> = new Set(["keep", "normalize", "strip"]);
 const OUTPUT_FORMATS: ReadonlySet<OutputFormat> = new Set(["markdown", "json", "html", "text"]);
@@ -19,6 +19,8 @@ export function resolveExportOptions(input?: ExportOptionsInput): ExportOptions 
     return { ...DEFAULT_EXPORT_OPTIONS };
   }
 
+  const filenameTemplate = coerceOptionalString(input.filenameTemplate);
+
   return {
     includeStatusUpdates: coerceBoolean(input.includeStatusUpdates, DEFAULT_EXPORT_OPTIONS.includeStatusUpdates),
     citationMode: coerceCitationMode(input.citationMode),
@@ -26,7 +28,7 @@ export function resolveExportOptions(input?: ExportOptionsInput): ExportOptions 
     includeHorizontalRules: coerceBoolean(input.includeHorizontalRules, DEFAULT_EXPORT_OPTIONS.includeHorizontalRules),
     normalizeLinks: coerceBoolean(input.normalizeLinks, DEFAULT_EXPORT_OPTIONS.normalizeLinks),
     outputFormat: coerceOutputFormat(input.outputFormat),
-    filenameTemplate: coerceOptionalString(input.filenameTemplate)
+    ...(filenameTemplate ? { filenameTemplate } : {})
   };
 }
 

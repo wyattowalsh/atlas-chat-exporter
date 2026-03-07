@@ -7,13 +7,13 @@ export type {
   OutputFormat,
   Role,
   Turn
-} from "./types";
+} from "./types.js";
 
 export {
   DEFAULT_EXPORT_OPTIONS,
   resolveExportOptions,
   type ExportOptionsInput
-} from "./options";
+} from "./options.js";
 
 export {
   AdapterActionError,
@@ -23,4 +23,4 @@ export {
   DownloadUnavailableError,
   NoTurnsFoundError,
   type AdapterAction
-} from "./errors";
+} from "./errors.js";
