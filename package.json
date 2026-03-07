@@ -1,0 +1,39 @@
+{
+  "name": "atlas-chat-exporter",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local-first toolkit for exporting Atlas/ChatGPT conversations.",
+  "scripts": {
+    "prepare": "husky",
+    "lint-staged": "lint-staged",
+    "commitlint": "commitlint --edit",
+    "format": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint": "eslint . --ext .js,.ts,.tsx,.jsx",
+    "typecheck": "tsc --noEmit"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,cjs,mjs}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ],
+    "*.{ts,tsx}": [
+      "tsc-files --noEmit --pretty false"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@typescript-eslint/eslint-plugin": "^8.30.1",
+    "@typescript-eslint/parser": "^8.30.1",
+    "eslint": "^9.24.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.0",
+    "prettier": "^3.5.3",
+    "tsc-files": "^1.1.4",
+    "typescript": "^5.8.3"
+  }
+}
