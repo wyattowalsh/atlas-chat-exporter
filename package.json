@@ -18,6 +18,7 @@
     "lint": "eslint . --ext .ts,.tsx,.js,.mjs,.cjs",
     "lint:fix": "pnpm lint -- --fix",
     "typecheck": "pnpm -r --if-present typecheck",
+    "collect:fixtures": "tsx scripts/collect-fixtures.ts",
     "verify:fixtures": "tsx scripts/verify-fixtures.ts",
     "check:security-policy": "node scripts/enforce-security-policy.mjs",
     "package:extension": "tsx scripts/package-extension.ts",
