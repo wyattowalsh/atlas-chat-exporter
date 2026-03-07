@@ -1,0 +1,66 @@
+name: "Feature request"
+description: Suggest a new capability or improvement.
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Proposals should preserve the shared architecture:
+        one extraction core, thin adapters.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What user need or pain point does this solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the preferred behavior.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any alternatives or tradeoffs you've considered.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Expected scope
+      options:
+        - Shared core only
+        - Adapter only
+        - Shared core + one adapter
+        - Shared core + multiple adapters
+        - Documentation only
+        - Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Define what "done" looks like.
+      placeholder: |
+        - [ ] Supports ...
+        - [ ] Includes tests/fixtures ...
+        - [ ] Updates docs ...
+
+  - type: checkboxes
+    id: principles
+    attributes:
+      label: Architecture & privacy checks
+      options:
+        - label: This request can be implemented without adding telemetry or remote data exfiltration by default.
+          required: true
+        - label: This request should use shared core logic instead of introducing parser duplication in adapters.
+          required: true

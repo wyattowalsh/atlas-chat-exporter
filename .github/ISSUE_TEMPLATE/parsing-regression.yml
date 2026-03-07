@@ -1,0 +1,88 @@
+name: "Parsing regression"
+description: Report regressions in parser/transform/render output quality.
+labels:
+  - bug
+  - parsing
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template when previously-supported conversation structures now export incorrectly.
+
+        Please attach sanitized fixture-style inputs (DOM/html) and expected outputs when possible.
+
+  - type: input
+    id: version
+    attributes:
+      label: Affected version / commit
+      placeholder: e.g. v0.3.2 or abc1234
+    validations:
+      required: true
+
+  - type: dropdown
+    id: regression-type
+    attributes:
+      label: Regression type
+      options:
+        - Turn discovery
+        - Role inference
+        - Citation handling
+        - Code fence preservation
+        - List/table/blockquote structure
+        - Whitespace cleanup
+        - Duplicate collapse
+        - Interim status stripping
+        - Renderer formatting
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: before-after
+    attributes:
+      label: Before vs after
+      description: What used to happen and what happens now?
+      placeholder: |
+        Before: ...
+        After: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: fixture-input
+    attributes:
+      label: Minimal fixture input (sanitized)
+      description: Raw DOM/HTML sample that reproduces the issue.
+      render: html
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-output
+    attributes:
+      label: Expected output
+      description: Expected Markdown or JSON.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual-output
+    attributes:
+      label: Actual output
+      description: Current Markdown or JSON.
+      render: markdown
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I confirmed this is a regression (behavior changed from a prior version/commit).
+          required: true
+        - label: I removed or anonymized sensitive content from samples.
+          required: true
+        - label: I can contribute a fixture and golden expectation for this regression.
+          required: false

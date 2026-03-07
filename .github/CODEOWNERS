@@ -1,0 +1,24 @@
+# Default owners for all paths
+* @atlas-chat-exporter-maintainers
+
+# Shared extraction pipeline packages
+/packages/core/ @atlas-chat-exporter-maintainers
+/packages/parser-dom/ @atlas-chat-exporter-maintainers
+/packages/transform/ @atlas-chat-exporter-maintainers
+/packages/render-markdown/ @atlas-chat-exporter-maintainers
+/packages/render-json/ @atlas-chat-exporter-maintainers
+/packages/shared/ @atlas-chat-exporter-maintainers
+
+# Adapter apps
+/apps/extension/ @atlas-chat-exporter-maintainers
+/apps/snippets/ @atlas-chat-exporter-maintainers
+/apps/bookmarklets/ @atlas-chat-exporter-maintainers
+/apps/userscript/ @atlas-chat-exporter-maintainers
+/apps/cli/ @atlas-chat-exporter-maintainers
+/apps/native-launchers/ @atlas-chat-exporter-maintainers
+
+# Documentation and fixtures
+/docs/ @atlas-chat-exporter-maintainers
+/fixtures/ @atlas-chat-exporter-maintainers
+/tests/ @atlas-chat-exporter-maintainers
+/.github/ @atlas-chat-exporter-maintainers
