@@ -75,34 +75,30 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Upload CLI distributable bundle
+      - name: Upload CLI build output
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: cli-distributable-bundle
+          name: cli-build-output
           path: |
             apps/cli/dist/**
-            dist/cli/**
           if-no-files-found: warn
 
-      - name: Upload extension zip package
+      - name: Upload extension build output
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: extension-zip-package
+          name: extension-build-output
           path: |
-            apps/extension/dist/*.zip
-            dist/extension/*.zip
+            apps/extension/dist/**
           if-no-files-found: warn
 
-      - name: Upload snippets/bookmarklets bundles
+      - name: Upload snippets and bookmarklets build output
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: snippets-bookmarklets-bundles
+          name: snippets-bookmarklets-build-output
           path: |
             apps/snippets/dist/**
             apps/bookmarklets/dist/**
-            dist/snippets/**
-            dist/bookmarklets/**
           if-no-files-found: warn
