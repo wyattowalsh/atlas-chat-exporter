@@ -1,0 +1,29 @@
+{
+  "name": "atlas-chat-exporter",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Local-first toolkit for exporting Atlas/ChatGPT conversations",
+  "scripts": {
+    "prepare": "husky",
+    "lint": "node scripts/check-commands.mjs lint",
+    "format:check": "node scripts/check-commands.mjs format:check",
+    "typecheck": "node scripts/check-commands.mjs typecheck",
+    "precommit:verify": "npm run lint && npm run format:check && npm run typecheck"
+  },
+  "lint-staged": {
+    "*.{js,cjs,mjs,ts,tsx}": [
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2"
+  }
+}

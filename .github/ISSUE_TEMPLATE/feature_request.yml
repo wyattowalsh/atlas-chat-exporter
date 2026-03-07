@@ -1,0 +1,43 @@
+name: Feature request
+description: Propose an enhancement aligned with shared-core architecture.
+title: "feat: "
+labels:
+  - enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What user problem does this solve?
+      placeholder: I need ... because ...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the proposed implementation approach.
+      placeholder: Implement ... in shared packages and expose in adapters via ...
+    validations:
+      required: true
+  - type: textarea
+    id: architecture
+    attributes:
+      label: Architecture impact
+      description: Explain how this uses the shared core and keeps adapters thin.
+      placeholder: Changes in packages/core, parser-dom, transforms, renderers, adapter plumbing
+    validations:
+      required: true
+  - type: textarea
+    id: testing
+    attributes:
+      label: Testing and fixtures
+      description: Which tests/fixtures should be added or updated?
+      placeholder: unit/golden/integration + fixture names
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional alternatives and why they are less suitable.

@@ -1,0 +1,56 @@
+name: Bug report
+description: Report a reproducible defect in atlas-chat-exporter.
+title: "bug: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug report.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the bug and the observed behavior.
+      placeholder: What happened?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      description: Include exact steps, options used, and adapter/runtime details.
+      placeholder: |
+        1. Open ...
+        2. Run ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and impact
+      description: Which adapter(s) and output format(s) are affected?
+      placeholder: extension/snippet/cli/userscript, markdown/json
+    validations:
+      required: true
+  - type: textarea
+    id: fixtures
+    attributes:
+      label: Fixture or sample data
+      description: Provide fixture references or sanitized sample data if possible.
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: OS, browser version, Atlas/ChatGPT surface, commit SHA
+    validations:
+      required: true
