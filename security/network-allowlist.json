@@ -1,0 +1,41 @@
+{
+  "policyVersion": 1,
+  "defaultAdapterPolicy": {
+    "allowNetwork": false,
+    "allowedHosts": [
+      "localhost",
+      "127.0.0.1",
+      "::1"
+    ],
+    "notes": "Adapters are local-first; outbound network access is denied by default."
+  },
+  "allowedSurfaces": [
+    {
+      "surface": "apps/cli",
+      "purpose": "CDP connection to a user-selected local browser instance",
+      "allowedHosts": [
+        "localhost",
+        "127.0.0.1",
+        "::1"
+      ],
+      "allowedSchemes": [
+        "ws",
+        "http"
+      ],
+      "disallowRemoteHosts": true
+    }
+  ],
+  "forbiddenEndpointPatterns": [
+    "analytics",
+    "telemetry",
+    "segment",
+    "sentry",
+    "mixpanel",
+    "amplitude",
+    "datadog",
+    "google-analytics",
+    "api\\.posthog",
+    "hotjar",
+    "fullstory"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "atlas-chat-exporter",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Local-first toolkit for exporting ChatGPT/Atlas conversations.",
+  "scripts": {
+    "check:security-policy": "node scripts/enforce-security-policy.mjs"
+  }
+}
