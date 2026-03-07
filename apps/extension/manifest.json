@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Atlas Chat Exporter",
+  "version": "0.1.0",
+  "description": "Copy/download current chat via shared core pipeline.",
+  "permissions": ["activeTab", "scripting", "storage", "downloads"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Atlas Chat Exporter"
+  },
+  "background": {
+    "service_worker": "src/background.js",
+    "type": "module"
+  },
+  "commands": {
+    "copy-chat": { "suggested_key": { "default": "Ctrl+Shift+C" }, "description": "Copy current chat" },
+    "download-chat": { "suggested_key": { "default": "Ctrl+Shift+D" }, "description": "Download current chat" }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "atlas-chat-exporter",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "echo 'build scaffolded adapters'",
+    "check": "node apps/cli/src/index.js --help"
+  }
+}
