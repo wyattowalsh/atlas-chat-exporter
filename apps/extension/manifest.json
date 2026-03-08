@@ -3,6 +3,7 @@
   "name": "Atlas Chat Exporter",
   "description": "Local-first chat export toolkit for Atlas/ChatGPT.",
   "version": "0.1.0",
+  "update_url": "https://wyattowalsh.github.io/atlas-chat-exporter/updates/atlas-chat-exporter-update.xml",
   "permissions": ["activeTab", "storage", "downloads"],
   "host_permissions": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
   "icons": {

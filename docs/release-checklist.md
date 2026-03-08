@@ -10,6 +10,7 @@ Use this checklist before publishing any release artifact.
 
 ## 2) Quality gates
 
+- [ ] `pnpm run check:ci-parity` passes.
 - [ ] Lint passes.
 - [ ] Typecheck passes.
 - [ ] Unit tests pass.
@@ -43,7 +44,7 @@ Use this checklist before publishing any release artifact.
 - [ ] Manifest V3 validated.
 - [ ] Version synchronized with release tag.
 - [ ] Deterministic ZIP packaging process available.
-- [ ] CRX signing key strategy defined (local secure key or CI secret).
+- [ ] `CRX_PRIVATE_KEY_PEM` exists as a repository secret (or approved equivalent).
 - [ ] Signing provenance documented.
 
 ## 7) Packaging flow
@@ -59,4 +60,8 @@ Use this checklist before publishing any release artifact.
 - [ ] Tag and publish release.
 - [ ] Publish/update changelog.
 - [ ] Confirm artifact download links.
+- [ ] Confirm GitHub Pages update channel publishes:
+  - `updates/atlas-chat-exporter-update.xml`
+  - `updates/atlas-chat-exporter-extension-v<version>.crx`
+- [ ] Confirm update XML points to the released CRX and expected version.
 - [ ] Confirm post-release quick smoke checks.
