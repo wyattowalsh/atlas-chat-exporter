@@ -16,13 +16,13 @@
     "default_title": "Atlas Chat Exporter"
   },
   "background": {
-    "service_worker": "dist/background.js",
+    "service_worker": "dist/apps/extension/src/background.js",
     "type": "module"
   },
   "content_scripts": [
     {
       "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
-      "js": ["dist/content.js"],
+      "js": ["dist/apps/extension/src/content.js"],
       "run_at": "document_idle"
     }
   ]
