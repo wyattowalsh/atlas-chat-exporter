@@ -1,0 +1,50 @@
+name: Regression report
+description: Report behavior that used to work and now fails.
+title: 'regression: '
+labels:
+  - regression
+body:
+  - type: textarea
+    id: previous
+    attributes:
+      label: Previously working behavior
+      description: What worked before?
+      placeholder: In version/commit ..., exporting ... produced ...
+    validations:
+      required: true
+  - type: input
+    id: last_known_good
+    attributes:
+      label: Last known good version/commit
+      placeholder: v0.x.y or commit SHA
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current failing behavior
+      placeholder: Now it ...
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Reproduction steps
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected adapters and formats
+      placeholder: extension/snippet/cli/userscript + markdown/json
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, fixture diffs, or screenshots
+      description: Include relevant logs or fixture output changes.

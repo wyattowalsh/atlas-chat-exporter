@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Atlas Chat Exporter</title>
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        margin: 12px;
+        width: 280px;
+      }
+      h3 {
+        margin: 0 0 10px;
+      }
+      label {
+        display: block;
+        margin: 8px 0;
+      }
+      button {
+        margin-right: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Atlas Chat Exporter</h3>
+    <label><input id="includeRoleHeadings" type="checkbox" checked /> Include role headings</label>
+    <label><input id="includeHorizontalRules" type="checkbox" /> Include horizontal rules</label>
+    <label>
+      Citation mode
+      <select id="citationMode">
+        <option value="keep">Keep</option>
+        <option value="normalize" selected>Normalize</option>
+        <option value="strip">Strip</option>
+      </select>
+    </label>
+    <div>
+      <button id="copyButton">Copy</button>
+      <button id="downloadButton">Download</button>
+    </div>
+    <script type="module" src="dist/popup.js"></script>
+  </body>
+</html>

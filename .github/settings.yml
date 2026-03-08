@@ -1,0 +1,71 @@
+# Declarative repository settings (for Settings app / sync automation)
+repository:
+  name: atlas-chat-exporter
+  default_branch: main
+  private: false
+  delete_branch_on_merge: true
+  allow_squash_merge: true
+  allow_rebase_merge: true
+  allow_merge_commit: false
+  allow_auto_merge: true
+
+labels:
+  - name: release
+    color: '5319e7'
+    description: 'Pull request includes release impact'
+  - name: no-release
+    color: '0e8a16'
+    description: 'Internal change with no release impact'
+  - name: adapter-change
+    color: '1d76db'
+    description: 'Change touches adapter package(s)'
+  - name: core-change
+    color: 'fbca04'
+    description: 'Change touches shared parser/transform/render/core'
+
+branches:
+  - name: main
+    protection:
+      required_status_checks:
+        strict: true
+        checks:
+          - context: 'lint (Node 20.x)'
+          - context: 'typecheck (Node 20.x)'
+          - context: 'test:unit (Node 20.x)'
+          - context: 'test:golden (Node 20.x)'
+          - context: 'test:smoke (Node 20.x)'
+          - context: 'verify:fixtures (Node 20.x)'
+          - context: 'check:security-policy (Node 20.x)'
+          - context: 'build (Node 20.x)'
+      enforce_admins: true
+      required_pull_request_reviews:
+        required_approving_review_count: 2
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+      restrictions: null
+      required_linear_history: true
+      allow_force_pushes: false
+      allow_deletions: false
+
+  - name: master
+    protection:
+      required_status_checks:
+        strict: true
+        checks:
+          - context: 'lint (Node 20.x)'
+          - context: 'typecheck (Node 20.x)'
+          - context: 'test:unit (Node 20.x)'
+          - context: 'test:golden (Node 20.x)'
+          - context: 'test:smoke (Node 20.x)'
+          - context: 'verify:fixtures (Node 20.x)'
+          - context: 'check:security-policy (Node 20.x)'
+          - context: 'build (Node 20.x)'
+      enforce_admins: true
+      required_pull_request_reviews:
+        required_approving_review_count: 2
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+      restrictions: null
+      required_linear_history: true
+      allow_force_pushes: false
+      allow_deletions: false

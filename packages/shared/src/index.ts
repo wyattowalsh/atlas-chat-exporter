@@ -2,25 +2,30 @@ export type {
   Block,
   CitationMode,
   ConversationDoc,
+  ExportContext,
   ExportOptions,
+  ExportResult,
   ListItem,
   OutputFormat,
   Role,
   Turn
-} from "./types";
+} from "./types.js";
 
 export {
   DEFAULT_EXPORT_OPTIONS,
   resolveExportOptions,
   type ExportOptionsInput
-} from "./options";
+} from "./options.js";
 
 export {
   AdapterActionError,
   AdapterError,
   AtlasChatExporterError,
   ClipboardUnavailableError,
+  CopyBlockedError,
   DownloadUnavailableError,
+  DownloadBlockedError,
   NoTurnsFoundError,
+  SelectorDriftError,
   type AdapterAction
-} from "./errors";
+} from "./errors.js";

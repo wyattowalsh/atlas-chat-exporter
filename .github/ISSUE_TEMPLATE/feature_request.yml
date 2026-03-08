@@ -1,0 +1,73 @@
+name: "Feature request"
+description: "Propose an enhancement for atlas-chat-exporter"
+title: "[feature] <short summary>"
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for proposing an improvement.
+        Favor requests that keep one shared extraction core and thin adapters.
+
+  - type: input
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What user problem does this solve?
+      placeholder: "Need deterministic citation normalization in CLI output"
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the preferred behavior and where it should live (core/parser/transform/renderer/adapter).
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any other designs or workarounds?
+
+  - type: dropdown
+    id: affected_layers
+    attributes:
+      label: Affected layers
+      multiple: true
+      options:
+        - packages/shared
+        - packages/parser-dom
+        - packages/transform
+        - packages/render-markdown
+        - packages/render-json
+        - packages/core
+        - Adapter(s) only
+        - Docs/tests only
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Bullet list of clear, testable outcomes.
+      placeholder: |
+        - [ ] Added fixture for citation-heavy chat
+        - [ ] Golden markdown/json updated
+        - [ ] Option documented in docs/option-matrix.md
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Confirmations
+      options:
+        - label: This request keeps parsing semantics in shared packages, not adapter-specific logic.
+          required: true
+        - label: This request considers local-first privacy constraints (no telemetry/exfiltration by default).
+          required: true

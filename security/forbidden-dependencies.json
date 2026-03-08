@@ -1,0 +1,16 @@
+{
+  "forbiddenDependencies": [
+    "@segment/analytics-next",
+    "analytics",
+    "mixpanel",
+    "amplitude-js",
+    "@amplitude/analytics-browser",
+    "posthog-js",
+    "@sentry/browser",
+    "@sentry/node",
+    "datadog-rum",
+    "datadog-ci",
+    "firebase",
+    "@firebase/analytics"
+  ]
+}

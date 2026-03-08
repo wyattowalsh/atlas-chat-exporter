@@ -1,0 +1,28 @@
+{
+  "source": "chatgpt-atlas",
+  "exportedAt": "2024-01-01T00:00:00.000Z",
+  "turns": [
+    {
+      "role": "user",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "What changed in renewable deployment?"
+        }
+      ]
+    },
+    {
+      "role": "assistant",
+      "blocks": [
+        {
+          "kind": "paragraph",
+          "text": "Global solar deployment accelerated in 2023 [1] while wind remained uneven [2]."
+        },
+        {
+          "kind": "paragraph",
+          "text": "Malformed source shows up as broken [^99"
+        }
+      ]
+    }
+  ]
+}
