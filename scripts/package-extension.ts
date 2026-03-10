@@ -111,6 +111,14 @@ async function fileSha256(filePath: string): Promise<string> {
   return createHash('sha256').update(data).digest('hex');
 }
 
+async function setManifestVersion(extensionDir: string, version: string): Promise<void> {
+  const manifestPath = path.join(extensionDir, 'manifest.json');
+  const manifestRaw = await readFile(manifestPath, 'utf8');
+  const manifest = JSON.parse(manifestRaw) as Record<string, unknown>;
+  manifest.version = version;
+  await writeFile(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`, 'utf8');
+}
+
 async function zipDeterministic(inputDir: string, outputZip: string): Promise<void> {
   const files = await walkFiles(inputDir);
   const manifest = path.join(inputDir, '.pack-order.txt');
@@ -214,6 +222,7 @@ async function main() {
 
   await mkdir(outDir, { recursive: true });
   await cp(extensionDir, stagedDir, { recursive: true });
+  await setManifestVersion(stagedDir, args.version);
 
   const mtime = new Date(args.sourceDateEpoch * 1000);
   await normalizeMtime(stagedDir, mtime);
