@@ -122,7 +122,7 @@ if (chromeApi?.runtime?.onMessage) {
       if (msg.action === 'copy') {
         copyFromCurrentDocument(msg.options).then(
           () => sendResponse({ ok: true }),
-          (error) => sendResponse({ ok: false, error: String(error) })
+          (error) => sendResponse({ ok: false, error: normalizeRuntimeError(error) })
         );
         return true;
       }
@@ -132,9 +132,18 @@ if (chromeApi?.runtime?.onMessage) {
           downloadFromCurrentDocument(msg.options);
           sendResponse({ ok: true });
         } catch (error) {
-          sendResponse({ ok: false, error: String(error) });
+          sendResponse({ ok: false, error: normalizeRuntimeError(error) });
         }
       }
     }
   );
+}
+
+function normalizeRuntimeError(error: unknown): string {
+  const raw = String((error as { message?: unknown })?.message ?? error ?? '').trim();
+  const message = raw.replace(/^error:\s*/i, '');
+  if (!message || /unknown error/i.test(message)) {
+    return 'Unknown browser error while exporting in page context.';
+  }
+  return message;
 }
