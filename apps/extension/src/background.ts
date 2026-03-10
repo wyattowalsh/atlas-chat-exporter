@@ -10,6 +10,10 @@ type ExtensionMessage = {
   action?: ExtensionAction;
   options?: Partial<ExportOptions>;
 };
+type ExportDispatchResponse = {
+  ok?: boolean;
+  error?: string;
+};
 
 interface ChromeApi {
   commands?: {
@@ -39,7 +43,7 @@ interface ChromeApi {
     sendMessage(
       tabId: number,
       payload: { type: 'atlas:export'; action: ExtensionAction; options: ExportOptions }
-    ): Promise<void>;
+    ): Promise<ExportDispatchResponse | undefined>;
   };
   scripting?: {
     executeScript(details: { target: { tabId: number }; files: string[] }): Promise<unknown>;
@@ -99,13 +103,13 @@ async function triggerInActiveTab(
 ): Promise<void> {
   const api = chromeApi;
   if (!api) {
-    return;
+    throw new Error('Chrome runtime API is unavailable.');
   }
 
   const tabs = await api.tabs.query({ active: true, currentWindow: true });
   const tab = tabs[0];
   if (!tab?.id) {
-    return;
+    throw new Error('No active tab found for export.');
   }
 
   const stored = await api.storage.local.get(SETTINGS_KEY);
@@ -124,11 +128,12 @@ export async function sendExportMessageWithInjectionFallback(
   options: ExportOptions
 ): Promise<void> {
   try {
-    await api.tabs.sendMessage(tabId, {
+    const response = await api.tabs.sendMessage(tabId, {
       type: 'atlas:export',
       action,
       options
     });
+    assertExportSucceeded(response);
     return;
   } catch (error) {
     if (!isNoReceiverError(error)) {
@@ -145,11 +150,12 @@ export async function sendExportMessageWithInjectionFallback(
     files: [CONTENT_SCRIPT_FILE]
   });
 
-  await api.tabs.sendMessage(tabId, {
+  const response = await api.tabs.sendMessage(tabId, {
     type: 'atlas:export',
     action,
     options
   });
+  assertExportSucceeded(response);
 }
 
 function isNoReceiverError(error: unknown): boolean {
@@ -158,4 +164,12 @@ function isNoReceiverError(error: unknown): boolean {
     message.includes('receiving end does not exist') ||
     message.includes('could not establish connection')
   );
+}
+
+function assertExportSucceeded(response: ExportDispatchResponse | undefined): void {
+  if (response?.ok === true) {
+    return;
+  }
+
+  throw new Error(response?.error || 'Export failed in page context.');
 }

@@ -9,6 +9,10 @@ interface PopupChromeApi {
     sendMessage: (payload: unknown) => Promise<unknown>;
   };
 }
+type RuntimeActionResponse = {
+  ok?: boolean;
+  error?: string;
+};
 
 const chromeApi = (globalThis as { chrome?: PopupChromeApi }).chrome;
 
@@ -19,11 +23,16 @@ const includeHorizontalRules = document.getElementById(
 const citationMode = document.getElementById('citationMode') as HTMLSelectElement;
 const copyButton = document.getElementById('copyButton') as HTMLButtonElement;
 const downloadButton = document.getElementById('downloadButton') as HTMLButtonElement;
+const statusNode = document.getElementById('status') as HTMLDivElement;
 
-initialize().catch((error) => console.error(error));
+initialize().catch((error) => {
+  console.error(error);
+  setStatus(errorMessage(error), true);
+});
 
 async function initialize(): Promise<void> {
   if (!chromeApi?.runtime) {
+    setStatus('Chrome runtime API is unavailable.', true);
     return;
   }
   const settings = (await chromeApi.runtime.sendMessage({
@@ -41,6 +50,7 @@ async function initialize(): Promise<void> {
 
   copyButton.addEventListener('click', () => execute('copy'));
   downloadButton.addEventListener('click', () => execute('download'));
+  setStatus('');
 }
 
 async function persistSettings(): Promise<void> {
@@ -53,10 +63,31 @@ async function persistSettings(): Promise<void> {
 
 async function execute(action: 'copy' | 'download'): Promise<void> {
   if (!chromeApi?.runtime) {
+    setStatus('Chrome runtime API is unavailable.', true);
     return;
   }
-  await chromeApi.runtime.sendMessage({ type: 'atlas:action', action, options: readOptions() });
-  window.close();
+
+  const inFlightLabel = action === 'copy' ? 'Copying export...' : 'Preparing download...';
+  setBusy(true);
+  setStatus(inFlightLabel);
+
+  try {
+    const response = (await chromeApi.runtime.sendMessage({
+      type: 'atlas:action',
+      action,
+      options: readOptions()
+    })) as RuntimeActionResponse;
+
+    if (response?.ok !== true) {
+      throw new Error(response?.error || 'Export failed.');
+    }
+
+    window.close();
+  } catch (error) {
+    setStatus(errorMessage(error), true);
+  } finally {
+    setBusy(false);
+  }
 }
 
 function readOptions(): Partial<ExportOptions> {
@@ -65,4 +96,22 @@ function readOptions(): Partial<ExportOptions> {
     includeHorizontalRules: includeHorizontalRules.checked,
     citationMode: citationMode.value as ExportOptions['citationMode']
   };
+}
+
+function setBusy(value: boolean): void {
+  copyButton.disabled = value;
+  downloadButton.disabled = value;
+  includeRoleHeadings.disabled = value;
+  includeHorizontalRules.disabled = value;
+  citationMode.disabled = value;
+}
+
+function setStatus(message: string, isError = false): void {
+  statusNode.textContent = message;
+  statusNode.classList.toggle('error', isError);
+}
+
+function errorMessage(error: unknown): string {
+  const message = String((error as { message?: unknown })?.message ?? error ?? '');
+  return message.trim() || 'Export failed.';
 }
