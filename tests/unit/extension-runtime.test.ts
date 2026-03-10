@@ -27,7 +27,7 @@ describe('extension manifest coverage', () => {
 
 describe('sendExportMessageWithInjectionFallback', () => {
   it('sends directly when a content script receiver exists', async () => {
-    const sendMessage = vi.fn().mockResolvedValue(undefined);
+    const sendMessage = vi.fn().mockResolvedValue({ ok: true });
     const executeScript = vi.fn().mockResolvedValue(undefined);
 
     await sendExportMessageWithInjectionFallback(
@@ -50,7 +50,7 @@ describe('sendExportMessageWithInjectionFallback', () => {
       .mockRejectedValueOnce(
         new Error('Could not establish connection. Receiving end does not exist.')
       )
-      .mockResolvedValue(undefined);
+      .mockResolvedValue({ ok: true });
     const executeScript = vi.fn().mockResolvedValue(undefined);
 
     await sendExportMessageWithInjectionFallback(
@@ -107,5 +107,52 @@ describe('sendExportMessageWithInjectionFallback', () => {
     ).rejects.toThrow('tab crashed');
 
     expect(executeScript).not.toHaveBeenCalled();
+  });
+
+  it('throws when page export responds with an explicit failure', async () => {
+    const sendMessage = vi.fn().mockResolvedValue({
+      ok: false,
+      error: 'No conversation turns found.'
+    });
+
+    await expect(
+      sendExportMessageWithInjectionFallback(
+        {
+          tabs: { query: vi.fn(), sendMessage },
+          scripting: { executeScript: vi.fn() }
+        },
+        202,
+        'copy',
+        TEST_OPTIONS
+      )
+    ).rejects.toThrow('No conversation turns found.');
+  });
+
+  it('throws when retry after injection still responds with failure', async () => {
+    const sendMessage = vi
+      .fn()
+      .mockRejectedValueOnce(
+        new Error('Could not establish connection. Receiving end does not exist.')
+      )
+      .mockResolvedValueOnce({
+        ok: false,
+        error: 'Parser drift detected.'
+      });
+    const executeScript = vi.fn().mockResolvedValue(undefined);
+
+    await expect(
+      sendExportMessageWithInjectionFallback(
+        {
+          tabs: { query: vi.fn(), sendMessage },
+          scripting: { executeScript }
+        },
+        303,
+        'download',
+        TEST_OPTIONS
+      )
+    ).rejects.toThrow('Parser drift detected.');
+
+    expect(executeScript).toHaveBeenCalledTimes(1);
+    expect(sendMessage).toHaveBeenCalledTimes(2);
   });
 });
