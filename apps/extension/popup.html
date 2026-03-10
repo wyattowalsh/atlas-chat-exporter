@@ -2,56 +2,234 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Atlas Chat Exporter</title>
     <style>
+      :root {
+        --bg-0: #071429;
+        --bg-1: #0f2748;
+        --panel: rgba(255, 255, 255, 0.12);
+        --panel-strong: rgba(255, 255, 255, 0.18);
+        --text-main: #e9f1ff;
+        --text-muted: #b7c8eb;
+        --accent: #39d0ff;
+        --accent-2: #2af598;
+        --danger: #ff8c88;
+        --success: #80f6c2;
+        --shadow: 0 16px 36px rgba(0, 0, 0, 0.32);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
       body {
-        font-family:
-          system-ui,
-          -apple-system,
-          Segoe UI,
-          Roboto,
-          sans-serif;
-        margin: 12px;
-        width: 280px;
+        margin: 0;
+        width: 360px;
+        min-height: 420px;
+        font-family: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+        color: var(--text-main);
+        background:
+          radial-gradient(120% 80% at 90% 0%, rgba(57, 208, 255, 0.28), transparent 52%),
+          radial-gradient(120% 80% at 8% 100%, rgba(42, 245, 152, 0.18), transparent 58%),
+          linear-gradient(165deg, var(--bg-0), var(--bg-1));
       }
-      h3 {
-        margin: 0 0 10px;
+
+      .shell {
+        padding: 14px;
+        display: grid;
+        gap: 12px;
       }
-      label {
-        display: block;
-        margin: 8px 0;
+
+      .hero {
+        display: grid;
+        grid-template-columns: 42px 1fr;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 12px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, rgba(57, 208, 255, 0.2), rgba(42, 245, 152, 0.15));
+        box-shadow: var(--shadow);
       }
-      button {
-        margin-right: 6px;
+
+      .hero img {
+        width: 42px;
+        height: 42px;
+        border-radius: 11px;
+        background: rgba(255, 255, 255, 0.94);
+        padding: 4px;
       }
-      #status {
-        min-height: 18px;
-        margin-top: 10px;
+
+      .hero h1 {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.2;
+        letter-spacing: 0.01em;
+      }
+
+      .hero p {
+        margin: 3px 0 0;
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .panel {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 14px;
+        background: var(--panel);
+        backdrop-filter: blur(8px);
+        padding: 12px;
+      }
+
+      .settings {
+        display: grid;
+        gap: 9px;
+      }
+
+      .setting {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         font-size: 12px;
-        color: #1f2937;
+        color: var(--text-main);
       }
+
+      .setting .meta {
+        line-height: 1.1;
+      }
+
+      .setting .meta small {
+        color: var(--text-muted);
+        font-size: 10px;
+      }
+
+      .setting input[type='checkbox'] {
+        inline-size: 17px;
+        block-size: 17px;
+        accent-color: var(--accent);
+      }
+
+      .setting select {
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 10px;
+        padding: 6px 9px;
+        font-size: 12px;
+        color: var(--text-main);
+        background: rgba(15, 39, 72, 0.92);
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+      }
+
+      .action-btn {
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 12px;
+        background: var(--panel-strong);
+        color: var(--text-main);
+        padding: 10px 10px;
+        font-size: 12px;
+        text-align: left;
+        cursor: pointer;
+        transition: transform 120ms ease, border-color 120ms ease, background 150ms ease;
+      }
+
+      .action-btn .title {
+        display: block;
+        font-weight: 650;
+      }
+
+      .action-btn .sub {
+        display: block;
+        margin-top: 3px;
+        font-size: 10px;
+        color: var(--text-muted);
+      }
+
+      .action-btn:hover:enabled {
+        transform: translateY(-1px);
+        border-color: rgba(57, 208, 255, 0.8);
+      }
+
+      .action-btn:disabled {
+        opacity: 0.55;
+        cursor: wait;
+      }
+
+      #status {
+        min-height: 40px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        padding: 9px 10px;
+        font-size: 12px;
+        line-height: 1.3;
+        color: var(--text-main);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      #status.info {
+        border-color: rgba(57, 208, 255, 0.45);
+      }
+
+      #status.success {
+        border-color: rgba(42, 245, 152, 0.6);
+        color: var(--success);
+      }
+
+      #status.working {
+        border-color: rgba(57, 208, 255, 0.8);
+      }
+
       #status.error {
-        color: #b91c1c;
+        border-color: rgba(255, 140, 136, 0.65);
+        color: var(--danger);
       }
     </style>
   </head>
   <body>
-    <h3>Atlas Chat Exporter</h3>
-    <label><input id="includeRoleHeadings" type="checkbox" checked /> Include role headings</label>
-    <label><input id="includeHorizontalRules" type="checkbox" /> Include horizontal rules</label>
-    <label>
-      Citation mode
-      <select id="citationMode">
-        <option value="keep">Keep</option>
-        <option value="normalize" selected>Normalize</option>
-        <option value="strip">Strip</option>
-      </select>
-    </label>
-    <div>
-      <button id="copyButton">Copy</button>
-      <button id="downloadButton">Download</button>
-    </div>
-    <div id="status" aria-live="polite"></div>
+    <main class="shell">
+      <section class="hero">
+        <img src="assets/icons/icon-48.png" alt="Atlas Chat Exporter" />
+        <div>
+          <h1>Atlas Chat Exporter</h1>
+          <p>High-fidelity local export for Atlas/ChatGPT</p>
+        </div>
+      </section>
+
+      <section class="panel settings">
+        <label class="setting">
+          <span class="meta">Role headings<br /><small>Include User/Assistant sections</small></span>
+          <input id="includeRoleHeadings" type="checkbox" checked />
+        </label>
+        <label class="setting">
+          <span class="meta">Horizontal rules<br /><small>Separate turns with separators</small></span>
+          <input id="includeHorizontalRules" type="checkbox" />
+        </label>
+        <label class="setting" for="citationMode">
+          <span class="meta">Citation mode<br /><small>Keep, normalize, or strip chips</small></span>
+          <select id="citationMode">
+            <option value="keep">Keep</option>
+            <option value="normalize" selected>Normalize</option>
+            <option value="strip">Strip</option>
+          </select>
+        </label>
+      </section>
+
+      <section class="actions">
+        <button id="copyButton" class="action-btn" type="button">
+          <span class="title">Copy Markdown</span>
+          <span class="sub">Clipboard</span>
+        </button>
+        <button id="downloadButton" class="action-btn" type="button">
+          <span class="title">Download File</span>
+          <span class="sub">.md export</span>
+        </button>
+      </section>
+
+      <section id="status" class="info" aria-live="polite">Ready.</section>
+    </main>
     <script type="module" src="dist/apps/extension/src/popup.js"></script>
   </body>
 </html>

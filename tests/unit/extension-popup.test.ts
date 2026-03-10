@@ -17,9 +17,9 @@ function setupDom(): JSDOM {
             <option value="normalize" selected>Normalize</option>
             <option value="strip">Strip</option>
           </select>
-          <button id="copyButton">Copy</button>
-          <button id="downloadButton">Download</button>
-          <div id="status"></div>
+          <button id="copyButton" class="action-btn"><span class="title">Copy Markdown</span></button>
+          <button id="downloadButton" class="action-btn"><span class="title">Download File</span></button>
+          <div id="status" class="info"></div>
         </body>
       </html>`,
     {
@@ -53,11 +53,11 @@ describe('extension popup runtime UX', () => {
     vi.unstubAllGlobals();
   });
 
-  it('shows an error and keeps popup open when action fails', async () => {
+  it('shows a normalized error and keeps popup open when action fails', async () => {
     const closeSpy = vi.spyOn(window, 'close').mockImplementation(() => undefined);
     sendMessage.mockResolvedValueOnce({}).mockResolvedValueOnce({
       ok: false,
-      error: 'No active tab found for export.'
+      error: 'unknown error'
     });
 
     await loadPopupModule();
@@ -70,7 +70,7 @@ describe('extension popup runtime UX', () => {
 
     await vi.waitFor(() => {
       const status = document.getElementById('status');
-      expect(status?.textContent).toContain('No active tab found for export.');
+      expect(status?.textContent).toContain('Unknown browser error while exporting');
       expect(status?.classList.contains('error')).toBe(true);
     });
 
@@ -78,7 +78,7 @@ describe('extension popup runtime UX', () => {
     expect(copyButton.disabled).toBe(false);
   });
 
-  it('closes popup when action succeeds', async () => {
+  it('shows confirmation and keeps popup open when action succeeds', async () => {
     const closeSpy = vi.spyOn(window, 'close').mockImplementation(() => undefined);
     sendMessage.mockResolvedValueOnce({}).mockResolvedValueOnce({ ok: true });
 
@@ -90,6 +90,12 @@ describe('extension popup runtime UX', () => {
     const downloadButton = document.getElementById('downloadButton') as HTMLButtonElement;
     downloadButton.click();
 
-    await vi.waitFor(() => expect(closeSpy).toHaveBeenCalledTimes(1));
+    await vi.waitFor(() => {
+      const status = document.getElementById('status');
+      expect(status?.textContent).toContain('Download triggered');
+      expect(status?.classList.contains('success')).toBe(true);
+    });
+
+    expect(closeSpy).not.toHaveBeenCalled();
   });
 });

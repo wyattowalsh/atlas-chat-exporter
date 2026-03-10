@@ -90,7 +90,7 @@ if (chromeApi?.runtime?.onMessage) {
       if (msg.type === 'atlas:action' && msg.action) {
         triggerInActiveTab(msg.action, msg.options)
           .then(() => sendResponse({ ok: true }))
-          .catch((error) => sendResponse({ ok: false, error: String(error) }));
+          .catch((error) => sendResponse({ ok: false, error: normalizeRuntimeError(error) }));
         return true;
       }
     }
@@ -171,5 +171,14 @@ function assertExportSucceeded(response: ExportDispatchResponse | undefined): vo
     return;
   }
 
-  throw new Error(response?.error || 'Export failed in page context.');
+  throw new Error(response?.error || 'Unknown page-context export failure.');
+}
+
+function normalizeRuntimeError(error: unknown): string {
+  const raw = String((error as { message?: unknown })?.message ?? error ?? '').trim();
+  const message = raw.replace(/^error:\s*/i, '');
+  if (!message || /unknown error/i.test(message)) {
+    return 'Unknown browser error while exporting. Reload the chat tab, then try again.';
+  }
+  return message;
 }
