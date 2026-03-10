@@ -41,10 +41,14 @@ interface ChromeApi {
       payload: { type: 'atlas:export'; action: ExtensionAction; options: ExportOptions }
     ): Promise<void>;
   };
+  scripting?: {
+    executeScript(details: { target: { tabId: number }; files: string[] }): Promise<unknown>;
+  };
 }
 
 const chromeApi = (globalThis as { chrome?: ChromeApi }).chrome;
 const SETTINGS_KEY = 'atlas-export-options';
+const CONTENT_SCRIPT_FILE = 'dist/apps/extension/src/content.js';
 
 if (chromeApi?.commands) {
   chromeApi.commands.onCommand.addListener(async (command: string) => {
@@ -110,9 +114,48 @@ async function triggerInActiveTab(
     ...(options ?? {})
   });
 
-  await api.tabs.sendMessage(tab.id, {
+  await sendExportMessageWithInjectionFallback(api, tab.id, action, merged);
+}
+
+export async function sendExportMessageWithInjectionFallback(
+  api: Pick<ChromeApi, 'tabs' | 'scripting'>,
+  tabId: number,
+  action: ExtensionAction,
+  options: ExportOptions
+): Promise<void> {
+  try {
+    await api.tabs.sendMessage(tabId, {
+      type: 'atlas:export',
+      action,
+      options
+    });
+    return;
+  } catch (error) {
+    if (!isNoReceiverError(error)) {
+      throw error;
+    }
+  }
+
+  if (!api.scripting?.executeScript) {
+    throw new Error('No receiving content script found and chrome.scripting is unavailable.');
+  }
+
+  await api.scripting.executeScript({
+    target: { tabId },
+    files: [CONTENT_SCRIPT_FILE]
+  });
+
+  await api.tabs.sendMessage(tabId, {
     type: 'atlas:export',
     action,
-    options: merged
+    options
   });
+}
+
+function isNoReceiverError(error: unknown): boolean {
+  const message = String((error as { message?: unknown })?.message ?? error ?? '').toLowerCase();
+  return (
+    message.includes('receiving end does not exist') ||
+    message.includes('could not establish connection')
+  );
 }

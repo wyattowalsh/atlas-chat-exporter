@@ -53,6 +53,7 @@ def main() -> None:
 
     shutil.copy2(BRAND_DIR / "logo-16.png", ROOT / "apps/extension/assets/icons/icon-16.png")
     shutil.copy2(BRAND_DIR / "logo-32.png", ROOT / "apps/extension/assets/icons/icon-32.png")
+    shutil.copy2(BRAND_DIR / "logo-128.png", ROOT / "apps/extension/assets/icons/icon-128.png")
     shutil.copy2(BRAND_DIR / "logo-32.png", ROOT / "apps/userscript/assets/icons/icon-32.png")
     shutil.copy2(BRAND_DIR / "logo-64.png", ROOT / "apps/userscript/assets/icons/icon-64.png")
     shutil.copy2(BRAND_DIR / "logo-256.png", ROOT / "apps/cli/assets/logo-256.png")

@@ -4,16 +4,27 @@
   "description": "Local-first chat export toolkit for Atlas/ChatGPT.",
   "version": "0.1.0",
   "update_url": "https://wyattowalsh.github.io/atlas-chat-exporter/updates/atlas-chat-exporter-update.xml",
-  "permissions": ["activeTab", "storage", "downloads"],
-  "host_permissions": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+  "permissions": ["activeTab", "storage", "downloads", "scripting"],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "https://*.chatgpt.com/*",
+    "https://*.openai.com/*"
+  ],
   "icons": {
     "16": "assets/icons/icon-16.png",
     "32": "assets/icons/icon-32.png",
-    "48": "assets/icons/icon-48.png"
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Atlas Chat Exporter"
+    "default_title": "Atlas Chat Exporter",
+    "default_icon": {
+      "16": "assets/icons/icon-16.png",
+      "32": "assets/icons/icon-32.png",
+      "48": "assets/icons/icon-48.png"
+    }
   },
   "background": {
     "service_worker": "dist/apps/extension/src/background.js",
@@ -21,7 +32,12 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+      "matches": [
+        "https://chat.openai.com/*",
+        "https://chatgpt.com/*",
+        "https://*.chatgpt.com/*",
+        "https://*.openai.com/*"
+      ],
       "js": ["dist/apps/extension/src/content.js"],
       "run_at": "document_idle"
     }
